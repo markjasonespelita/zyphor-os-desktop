@@ -7,16 +7,22 @@ status:
 
 add:
 	git add command-center/DEBIAN/control
-	git commit -m "chore: updated zyphor-command-center DEBIAN control"
+	git commit -m "chore: update zyphor-command-center package metadata"
 
 	git add command-center/usr/share/zyphor-command-center/ui/home.py
-	git commit -m "chore: updated zyphor-command-center UI"
+	git commit -m "feat: update command center home interface"
+
+	git add os-release/DEBIAN/control
+	git commit -m "chore: update zyphor-os-release package metadata"
+
+	git add os-release/DEBIAN/postinst
+	git commit -m "feat: update os-release post-installation script"
 
 	git add whats-new/DEBIAN/control
-	git commit -m "chore: updated zyphor-whats-new control"
+	git commit -m "chore: update zyphor-whats-new package metadata"
 
 	git add whats-new/usr/share/zyphor-whats-new/release-notes.html
-	git commit -m "chore: updated release notes"
+	git commit -m "docs: update release notes"
 
 	git add Makefile
 	git commit -m "chore: modified Makefile"
