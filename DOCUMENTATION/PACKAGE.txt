@@ -9,10 +9,13 @@ Required Changes
 - os-release/DEBIAN/postinst
 
 [WITH DATES AND VERSIONS!]
+
 - whats-new/DEBIAN/control
 - whats-new/usr/share/zyphor-whats-new/release-notes.html
 - command-center/DEBIAN/control
 - command-center/usr/share/zyphor-command-center/ui/home.py
+
+[END OF WITH DATES AND VERSIONS!]
 
 - updates/DEBIAN/control (if new default package was introduced).
 
@@ -44,6 +47,10 @@ List of Packages Develop Under the Zyphor Project
 - whats-new         (zyphor-whats-new)
     A lightweight release notes viewer for Zyphor OS that shows system updates
     and changes in the browser after upgrades.
+
+- repo-config         (zyphor-repo-config)
+    Zyphor OS repository configuration
+    Installs and manages the Zyphor OS APT repository configuration.
 
 - wallpapers
     - zyphor-wallpapers-default-2026-2027
