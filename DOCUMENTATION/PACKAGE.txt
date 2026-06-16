@@ -7,6 +7,8 @@ vX.X.X-ux
 Required Changes
 - os-release/DEBIAN/control
 - os-release/DEBIAN/postinst
+
+[WITH DATES AND VERSIONS!]
 - whats-new/DEBIAN/control
 - whats-new/usr/share/zyphor-whats-new/release-notes.html
 - command-center/DEBIAN/control
