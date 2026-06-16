@@ -160,15 +160,22 @@ sections: [
 
 const releaseNotes = {
     distro: "Zyphor OS",
-    version: "1.11.1-u14",
-    date: "Updated On: June 13, 2026",
+    version: "1.11.1-u15",
+    date: "Updated On: June 16, 2026",
 
     sections: [
         {
+            title: "🔒 Security Updates",
+            items: [
+                "Changed ownership of Zyphor CLI files and libraries to root for improved system integrity and security.",
+                "Changed ownership of Zyphor Command Center files and libraries to root for improved system integrity and security."
+            ]
+        },
+        {
             title: "✨ New Features",
             items: [
-                "The ZyShell startup banner has been refreshed to provide a cleaner and more consistent display of system version information.",
-                "New OS banner format: Zyphor OS vX.X.X-uX (ZyShell) X.X.X"
+                "Created and applied the new zyphor.list repository configuration for the new package hosting infrastructure.",
+                "Updated the App Registry JSON configuration to support the latest application registry changes."
             ]
         }
     ]

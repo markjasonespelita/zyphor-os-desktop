@@ -1,7 +1,12 @@
 #!/bin/sh
 set -e
 
-# set file permission
+# Set ownership
+
+chown -R root:root /usr/lib/zyphor
+chown root:root /usr/local/bin/zyphor
+
+# Set permissions
 
 chmod 555 /usr/lib/zyphor/build/package
 chmod 555 /usr/lib/zyphor/build/repo
@@ -48,8 +53,8 @@ chmod 555 /usr/lib/zyphor/system/upgrade
 
 chmod 555 /usr/local/bin/zyphor
 
-# create symlink to /usr/bin folder
+# Create symlink
 
-sudo ln -sf /usr/local/bin/zyphor /usr/bin/zyphor
+ln -sf /usr/local/bin/zyphor /usr/bin/zyphor
 
 exit 0

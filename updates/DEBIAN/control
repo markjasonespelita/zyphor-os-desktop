@@ -35,6 +35,7 @@ Depends: zyphor-os-release,
  simplescreenrecorder,
  ufw,
  zyshell,
- zyphor-whats-new
+ zyphor-whats-new,
+ zyphor-repo-config
 Maintainer: Mark Jason P. Espelita
 Description: Zyphor OS Updates

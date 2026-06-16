@@ -50,7 +50,7 @@ class HomePage(QWidget):
 
         # IMPORTANT ==================== (Date and Version)
 
-        version = QLabel("Version 1.11.1-u14 • Updated On: June 13, 2026")
+        version = QLabel("Version 1.11.1-u15 • Updated On: June 16, 2026")
 
         # /IMPORTANT =================== (Date and Version)
 
@@ -71,7 +71,48 @@ class HomePage(QWidget):
 
         # ================================================================
 
-        # Feature Card
+        # Security Updates
+
+        security = QFrame()
+        security.setStyleSheet("""
+            QFrame {
+                background-color: #161f2f;
+                border: 1px solid #2a3445;
+                border-radius: 12px;
+            }
+        """)
+
+        security_layout = QVBoxLayout(security)
+
+        security_title = QLabel("🔒 Security Updates")
+        security_title.setStyleSheet("""
+            color: #3b82f6;
+            font-size: 22px;
+            font-weight: bold;
+        """)
+
+        security_layout.addWidget(security_title)
+
+        security_changes = [
+            "Changed ownership of Zyphor CLI files and libraries to root for improved system integrity and security.",
+            "Changed ownership of Zyphor Command Center files and libraries to root for improved system integrity and security."
+        ]
+
+        for item in security_changes:
+            lbl = QLabel(f"• {item}")
+            lbl.setWordWrap(True)
+            lbl.setStyleSheet("""
+                font-size: 15px;
+                line-height: 1.5;
+            """)
+            security_layout.addWidget(lbl)
+
+        layout.addWidget(security)
+
+        # ================================================================
+
+        # New Features
+
         feature = QFrame()
         feature.setStyleSheet("""
             QFrame {
@@ -83,7 +124,7 @@ class HomePage(QWidget):
 
         feature_layout = QVBoxLayout(feature)
 
-        section_title = QLabel("New Features")
+        section_title = QLabel("✨ New Features")
         section_title.setStyleSheet("""
             color: #3b82f6;
             font-size: 22px;
@@ -93,8 +134,8 @@ class HomePage(QWidget):
         feature_layout.addWidget(section_title)
 
         changes = [
-            "The ZyShell startup banner has been refreshed to provide a cleaner and more consistent display of system version information.",
-            "New OS banner format: Zyphor OS vX.X.X-uX (ZyShell) X.X.X"
+            "Created and applied the new zyphor.list repository configuration for the new package hosting infrastructure.",
+            "Updated the App Registry JSON configuration to support the latest application registry changes."
         ]
 
         for item in changes:
