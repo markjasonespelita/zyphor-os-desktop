@@ -6,23 +6,56 @@ status:
 	git status
 
 add:
-	git add command-center/DEBIAN/control
-	git commit -m "chore: update zyphor-command-center package metadata"
+	git add DOCUMENTATION/PACKAGE.txt
+	git commit -m "docs: update package documentation"
 
-	git add command-center/usr/share/zyphor-command-center/ui/home.py
-	git commit -m "feat: update command center home interface"
+	git add Makefile
+	git commit -m "build: update build system"
 
-	git add os-release/DEBIAN/control
-	git commit -m "chore: update zyphor-os-release package metadata"
+	git add updates/DEBIAN/control
+	git commit -m "build: update zyphor-updates package metadata"
 
-	git add os-release/DEBIAN/postinst
-	git commit -m "feat: update os-release post-installation script"
+	git add -A cli/
+	git commit -m "refactor: migrate zyphor-cli to zcli package structure"
 
-	git add whats-new/DEBIAN/control
-	git commit -m "chore: update zyphor-whats-new package metadata"
+	git add -A command-center/
+	git commit -m "refactor: migrate command center to zcc package structure"
 
-	git add whats-new/usr/share/zyphor-whats-new/release-notes.html
-	git commit -m "docs: update release notes"
+	git add -A os-release/
+	git commit -m "refactor: migrate os-release package to zor"
+
+	git add -A repo-config/
+	git commit -m "refactor: migrate repository configuration to zrc"
+
+	git add -A whats-new/
+	git commit -m "refactor: migrate whats-new package to zwn"
+
+	git add -A shell/
+	git commit -m "refactor: retire legacy zyshell package"
+
+	git add zcc/
+	git commit -m "feat: add zcc package"
+
+	git add zcli/
+	git commit -m "feat: add zcli package"
+
+	git add zor/
+	git commit -m "feat: add zor package"
+
+	git add zou/
+	git commit -m "feat: add zou package"
+
+	git add zrc/
+	git commit -m "feat: add zrc package"
+
+	git add zwn/
+	git commit -m "feat: add zwn package"
+
+	git add zysh/
+	git commit -m "feat: introduce zysh as default shell"
+
+	git add zyshell/
+	git commit -m "chore: add zyshell transition package"
 
 	git add Makefile
 	git commit -m "chore: modified Makefile"
@@ -42,14 +75,14 @@ switch:
 # RELEASE AUTOMATION
 
 release:
-	zyphor build package os-release
-	mv os-release.deb zyphor-os-release.deb
+	zyphor build package zor
+	mv zor.deb zyphor-os-release.deb
 
-	zyphor build package whats-new
-	mv whats-new.deb zyphor-whats-new.deb
+	zyphor build package zwn
+	mv zwn.deb zyphor-whats-new.deb
 
-	zyphor build package command-center
-	mv command-center.deb zyphor-command-center.deb
+	zyphor build package zcc
+	mv zcc.deb zyphor-command-center.deb
 
 	zyphor build package updates
 	mv updates.deb zyphor-updates.deb
