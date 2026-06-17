@@ -50,7 +50,7 @@ class HomePage(QWidget):
 
         # IMPORTANT ==================== (Date and Version)
 
-        version = QLabel("Version 1.13.0-u16 • Updated On: June 16, 2026")
+        version = QLabel("Version 1.13.0-u17 • Updated On: June 17, 2026")
 
         # /IMPORTANT =================== (Date and Version)
 
@@ -84,7 +84,7 @@ class HomePage(QWidget):
 
         feature_layout = QVBoxLayout(feature)
 
-        section_title = QLabel("✨ New Features")
+        section_title = QLabel("🔄 Changes")
         section_title.setStyleSheet("""
             color: #3b82f6;
             font-size: 22px;
@@ -94,11 +94,9 @@ class HomePage(QWidget):
         feature_layout.addWidget(section_title)
 
         changes = [
-            "Modified the APT package source configuration in /etc/apt/source.list.d to use the official Zyphor OS repository: deb [trusted=yes] https://zyphor-os.github.io stable main.",
-            "This change ensures that package updates, system upgrades, and repository metadata are fetched directly from the Zyphor OS distribution source.",
-            "Added the trusted=yes option to allow seamless package installation and updates without requiring separate repository key configuration.",
-            "Improves repository consistency across installations and simplifies package management for users running Zyphor OS.",
-            "Existing systems will now receive software packages, bug fixes, and future updates from the centralized Zyphor OS package repository."
+            "Zysh now replaces Zyshell as the default shell component in Zyphor OS.",
+            "Shell-related components have been reorganized for easier maintenance and future updates.",
+            "Updated package dependencies and system integration."
         ]
 
         for item in changes:

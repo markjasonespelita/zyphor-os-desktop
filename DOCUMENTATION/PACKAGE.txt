@@ -5,15 +5,15 @@ Versioning Scheme
 vX.X.X-ux
 
 Required Changes
-- os-release/DEBIAN/control
-- os-release/DEBIAN/postinst
+- zor/DEBIAN/control
+- zor/DEBIAN/postinst
 
 [WITH DATES AND VERSIONS!]
 
-- whats-new/DEBIAN/control
-- whats-new/usr/share/zyphor-whats-new/release-notes.html
-- command-center/DEBIAN/control
-- command-center/usr/share/zyphor-command-center/ui/home.py
+- zwn/DEBIAN/control
+- zwn/usr/share/zyphor-whats-new/release-notes.html
+- zcc/DEBIAN/control
+- zcc/usr/share/zyphor-command-center/ui/home.py
 
 [END OF WITH DATES AND VERSIONS!]
 
@@ -23,32 +23,35 @@ Required Changes
 List of Packages Develop Under the Zyphor Project
 =================================================
 
-- cli               (zyphor-cli)
+- zcli               (zyphor-cli)
     CLI Abstraction Layer.
 
-- command-center    (zyphor-command-center)
+- zcc    (zyphor-command-center)
     CLI Abstraction Layer GUI, runs on top of bash or zsh.
 
-- os-release        (zyphor-os-release)
+- zor        (zyphor-os-release)
     OS release file located in /usr/lib/os-release -> /etc/os-release.
 
-- os-updates        (zyphor-os-updates)
+- zou        (zyphor-os-updates)
     Small OS updates (new feature, patch release and others...)
     * fastfetch-config-1
     * grub-screensaver-1
     * zyphor-display-mac-v1
 
-- shell             (zyshell)
+- zyshell             (zyshell)
     Zyphor OS default shell. Pre-installed and pre-configured after new installed OS, update and upgrade.
+
+- zysh             (zysh)
+    Replacement for zyshell.
 
 - updates           (zyphor-updates)
     Dependencies, default applications and configurations in every new release.
 
-- whats-new         (zyphor-whats-new)
+- zwn         (zyphor-whats-new)
     A lightweight release notes viewer for Zyphor OS that shows system updates
     and changes in the browser after upgrades.
 
-- repo-config         (zyphor-repo-config)
+- zrc         (zyphor-repo-config)
     Zyphor OS repository configuration
     Installs and manages the Zyphor OS APT repository configuration.
 

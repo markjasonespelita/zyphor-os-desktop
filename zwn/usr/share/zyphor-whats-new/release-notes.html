@@ -160,18 +160,16 @@ sections: [
 
 const releaseNotes = {
     distro: "Zyphor OS",
-    version: "1.13.0-u16",
-    date: "Updated On: June 16, 2026",
+    version: "1.13.0-u17",
+    date: "Updated On: June 17, 2026",
 
     sections: [
         {
-            title: "✨ New Features",
+            title: "🔄 Changes",
             items: [
-                "Modified the APT package source configuration in /etc/apt/source.list.d to use the official Zyphor OS repository: deb [trusted=yes] https://zyphor-os.github.io stable main.",
-                "This change ensures that package updates, system upgrades, and repository metadata are fetched directly from the Zyphor OS distribution source.",
-                "Added the trusted=yes option to allow seamless package installation and updates without requiring separate repository key configuration.",
-                "Improves repository consistency across installations and simplifies package management for users running Zyphor OS.",
-                "Existing systems will now receive software packages, bug fixes, and future updates from the centralized Zyphor OS package repository."
+                "Zysh now replaces Zyshell as the default shell component in Zyphor OS.",
+                "Shell-related components have been reorganized for easier maintenance and future updates.",
+                "Updated package dependencies and system integration."
             ]
         }
     ]
