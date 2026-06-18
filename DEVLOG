@@ -56,3 +56,7 @@ This will be updated daily.
 
 2026-06-17
 - created the first layout of the website.
+- zysh 2.0.1-stable-release
+
+2026-06-18
+- attempted kernel upgrade to 7.1.0 over 6.19.x failed due to insufficient memory
