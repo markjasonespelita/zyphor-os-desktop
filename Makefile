@@ -6,30 +6,24 @@ status:
 	git status
 
 add:
-	git add DOCUMENTATION/PACKAGE.txt
-	git add Makefile
+	git add pkg/updater/zor/DEBIAN/control
+	git commit -m "chore: updated zyphor-os-release package metadata"
 
-	git add pkg/zcc/DEBIAN/control
+	git add pkg/updater/zor/DEBIAN/postinst
+	git commit -m "feat: improved zyphor-os-release post-install configuration"
 
-	git add pkg/zcc/usr/share/zyphor-command-center/ui/home.py
+	git add pkg/updater/zwn/DEBIAN/control
+	git commit -m "chore: updated zyphor-whats-new package metadata"
 
-	git add pkg/updater/
+	git add pkg/updater/zwn/usr/share/zyphor-whats-new/release-notes.html
+	git commit -m "docs: updated Zyphor OS release notes"
 
-	git add pkg/zcc/usr/share/zyphor-command-center/__pycache__/
-	git add pkg/zcc/usr/share/zyphor-command-center/core/__pycache__/
-	git add pkg/zcc/usr/share/zyphor-command-center/ui/__pycache__/
-	git add pkg/zcc/usr/share/zyphor-command-center/ui/components/__pycache__/
-	git add pkg/zcc/usr/share/zyphor-command-center/ui/doctor/__pycache__/
-	git add pkg/zcc/usr/share/zyphor-command-center/ui/pkg/__pycache__/
-	git add pkg/zcc/usr/share/zyphor-command-center/ui/system/__pycache__/
+	git add pkg/zysh/DEBIAN/control
+	git commit -m "chore: updated zysh package metadata"
 
-	git rm pkg/updates/DEBIAN/control
-	git rm pkg/zor/DEBIAN/control
-	git rm pkg/zor/DEBIAN/postinst
-	git rm pkg/zwn/DEBIAN/control
-	git rm pkg/zwn/DEBIAN/postinst
-	git rm pkg/zwn/usr/share/zyphor-whats-new/release-notes.html
-
+	git add pkg/zysh/usr/share/zysh/prompt.zsh
+	git commit -m "feat: enhanced zysh prompt styling"
+	
 	git add Makefile
 	git commit -m "build: update repository build system"
 
@@ -55,13 +49,10 @@ release:
 	zyphor build package pkg/updater/zwn
 	mv pkg/updater/zwn.deb zyphor-whats-new.deb
 
-	zyphor build package pkg/updater/updates
-	mv pkg/updater/updates.deb zyphor-updates.deb
-
 # 	---
 
-	zyphor build package pkg/zcc
-	mv pkg/zcc.deb zyphor-command-center.deb
+	zyphor build package pkg/zysh
+	mv pkg/zysh.deb zysh.deb
 
 	mv ./*.deb ../zyphor-os.github.io/pool/main/z --verbose
 
