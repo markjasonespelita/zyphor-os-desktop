@@ -6,57 +6,30 @@ status:
 	git status
 
 add:
-	git add DOCUMENTATION/PACKAGE.txt
-	git commit -m "docs: update package documentation"
+	git add zcc/DEBIAN/control
+	git commit -m "chore: updated zyphor-command-center package metadata"
 
-	git add Makefile
-	git commit -m "build: update build system"
+	git add zor/DEBIAN/control
+	git commit -m "chore: updated zyphor-os-release package metadata"
 
-	git add updates/DEBIAN/control
-	git commit -m "build: update zyphor-updates package metadata"
+	git add zrc/DEBIAN/control
+	git commit -m "chore: updated zyphor-repo-config package metadata"
 
-	git add -A cli/
-	git commit -m "refactor: migrate zyphor-cli to zcli package structure"
+	git add zwn/DEBIAN/control
+	git commit -m "chore: updated zyphor-whats-new package metadata"
 
-	git add -A command-center/
-	git commit -m "refactor: migrate command center to zcc package structure"
+	git add zysh/DEBIAN/control
+	git commit -m "chore: updated zysh package metadata"
 
-	git add -A os-release/
-	git commit -m "refactor: migrate os-release package to zor"
+	git add zylearn/Makefile
+	git commit -m "build: updated zylearn build configuration"
 
-	git add -A repo-config/
-	git commit -m "refactor: migrate repository configuration to zrc"
+	git add zylearn/main.c
+	git commit -m "feat: updated zylearn command implementation"
 
-	git add -A whats-new/
-	git commit -m "refactor: migrate whats-new package to zwn"
-
-	git add -A shell/
-	git commit -m "refactor: retire legacy zyshell package"
-
-	git add zcc/
-	git commit -m "feat: add zcc package"
-
-	git add zcli/
-	git commit -m "feat: add zcli package"
-
-	git add zor/
-	git commit -m "feat: add zor package"
-
-	git add zou/
-	git commit -m "feat: add zou package"
-
-	git add zrc/
-	git commit -m "feat: add zrc package"
-
-	git add zwn/
-	git commit -m "feat: add zwn package"
-
-	git add zysh/
-	git commit -m "feat: introduce zysh as default shell"
-
-	git add zyshell/
-	git commit -m "chore: add zyshell transition package"
-
+	git add zylearn/zylearn
+	git commit -m "feat: added zylearn learning skeleton"
+	
 	git add Makefile
 	git commit -m "chore: modified Makefile"
 
@@ -75,17 +48,26 @@ switch:
 # RELEASE AUTOMATION
 
 release:
-	zyphor build package zor
-	mv zor.deb zyphor-os-release.deb
-
-	zyphor build package zwn
-	mv zwn.deb zyphor-whats-new.deb
 
 	zyphor build package zcc
 	mv zcc.deb zyphor-command-center.deb
 
+	zyphor build package zor
+	mv zor.deb zyphor-os-release.deb
+
+	zyphor build package zrc
+	mv zrc.deb zyphor-repo-config.deb
+
+	zyphor build package zwn
+	mv zwn.deb zyphor-whats-new.deb
+
+	zyphor build package zylearn/zylearn
+	mv zylearn/zylearn.deb zylearn.deb
+
 	zyphor build package updates
 	mv updates.deb zyphor-updates.deb
+
+	zyphor build package zysh
 
 	mv ./*.deb ../zyphor-os.github.io/pool/main/z --verbose
 

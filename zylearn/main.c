@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
+#include <pwd.h>
+#include <unistd.h>
 #include "../helpers/headers/helperCommand.h"
 
 void logCommand(int id, int argc, char *argv[])
@@ -42,7 +43,33 @@ int main(int argc, char *argv[])
     }
 
     if (argc >= 2 && strcmp(argv[1], "--version") == 0) {
-        printf("zylearn version 1.0.0-stable\n");
+        printf("zylearn version v1.0.0-r1-beta-release\n");
+        return 0;
+    }
+
+    if (argc >= 2 && strcmp(argv[1], "--help") == 0) {
+
+        printf("zylearn v1.0.0-r1-beta-release\n\n");
+
+        printf("Usage:\n");
+        printf("  zylearn <command> [options]\n\n");
+
+        printf("Commands:\n");
+        printf("  setup skeleton      Install the Zyphor OS learning skeleton environment.\n");
+        printf("  show logs           Display learning activity logs.\n");
+        printf("  clear logs          Remove all learning activity logs.\n\n");
+
+        printf("Options:\n");
+        printf("  --help              Show this help message.\n");
+        printf("  --version           Show version information.\n\n");
+
+        printf("Examples:\n");
+        printf("  zylearn setup skeleton\n");
+        printf("  zylearn show logs\n");
+        printf("  zylearn clear logs\n\n");
+
+        printf("Learn Zyphor OS from the ground up.\n");
+
         return 0;
     }
 
@@ -61,7 +88,7 @@ int main(int argc, char *argv[])
             helperCommand(_GITBINPATH, "clone", _GITHUBREPOLINK, NULL);
 
         } else {
-            printf("zylearn: unknown '%s'\n", argv[2]);
+            printf("zylearn: unknown '%s'. Type zylearn --help for more information.\n", argv[2]);
             return 1;
         }
 
@@ -93,7 +120,7 @@ int main(int argc, char *argv[])
         }
 
         else {
-            printf("zylearn: unknown '%s'\n", argv[2]);
+            printf("zylearn: unknown '%s'. Type zylearn --help for more information.\n", argv[2]);
             return 1;
         }
 
@@ -113,7 +140,28 @@ int main(int argc, char *argv[])
         }
 
         else {
-            printf("zylearn: unknown '%s'\n", argv[2]);
+            printf("zylearn: unknown '%s'. Type zylearn --help for more information.\n", argv[2]);
+            return 1;
+        }
+
+    }
+
+    // TEST
+
+    else if (strcmp(argv[1], "test") == 0) {
+
+        if (strcmp(argv[2], "username") == 0) {
+            struct passwd *pw = getpwuid(getuid());
+
+            if (pw) {
+                printf("%s\n", pw->pw_name);
+            } else {
+                printf("\nError\n");
+            }
+        }
+
+        else {
+            printf("zylearn: unknown '%s'. Type zylearn --help for more information.\n", argv[2]);
             return 1;
         }
 
@@ -122,9 +170,16 @@ int main(int argc, char *argv[])
     // COMMAND ERROR
 
     else {
-        printf("zylearn: unknown command '%s'\n", argv[1]);
+        printf("zylearn: unknown command '%s'. Type zylearn --help for more information.\n", argv[1]);
         return 1;
     }
 
     return 0;
 }
+
+// usage ===
+
+// zylearn --version
+// zylearn setup skeleton
+// zylearn show logs
+// zylearn clear logs
