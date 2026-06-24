@@ -160,16 +160,17 @@ sections: [
 
 const releaseNotes = {
     distro: "Zyphor OS",
-    version: "1.13.0-u20",
-    date: "Updated On: June 23, 2026 @ 9:55PM",
+    version: "1.13.0-u21",
+    date: "Updated On: June 24, 2026 @ 08:10PM",
 
     sections: [
         {
-            title: "🐞 Bug Fixes",
+            title: "✨ New Features",
             items: [
-                "Fixed a bug where Git development setup could create SSH keys for the root account instead of the user running the command.",
-                "Git username and email configuration are now properly saved to the developer's account during setup.",
-                "Improved reliability of the `zyphor setup dev git` workflow to ensure SSH authentication works as expected after installation.",
+                "Added 'zyphor setup theme dark' to instantly switch the desktop environment to the Zyphor Dark theme.",
+                "Added 'zyphor setup theme light' to instantly switch the desktop environment to the Zyphor Light theme.",
+                "Theme changes are now applied automatically through the Zyphor CLI, eliminating the need to manually configure Appearance settings.",
+                "Improved desktop customization experience by providing a simple command-line interface for theme management.",
             ]
         }
     ]
