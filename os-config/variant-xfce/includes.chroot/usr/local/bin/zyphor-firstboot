@@ -1,78 +1,32 @@
 #!/bin/bash
-set -u
 
 FLAG="$HOME/.zyphor_firstboot_done"
-LOG_TAG="zyphor-firstboot"
-PROFILE="/usr/share/xfce4-panel-profiles/layouts/Redmond 7.tar.bz2"
-PANEL_CFG_DIR="$HOME/.config/xfce4/panel"
-LOGO="/usr/share/pixmaps/zyphor-logo.png"
-MAX_WAIT=30  # seconds, avoid an infinite hang if XFCE never starts
 
-log() { echo "INFO [$LOG_TAG]: $*"; }
-warn() { echo "WARN [$LOG_TAG]: $*" >&2; }
-
-# ── Run only once ────────────────────────────────────────
 [ -f "$FLAG" ] && exit 0
-log "Running Zyphor first boot setup..."
 
-# ── Wait for XFCE panel's DBus service (bounded, so we never hang forever) ──
-# We check the actual org.xfce.Panel DBus name rather than just the process,
-# since the process can be running before it finishes registering on the bus.
-waited=0
-while ! dbus-send --session --print-reply --dest=org.freedesktop.DBus \
-    /org/freedesktop/DBus org.freedesktop.DBus.NameHasOwner string:org.xfce.Panel \
-    2>/dev/null | grep -q "boolean true"; do
-    sleep 1
-    waited=$((waited + 1))
-    if [ "$waited" -ge "$MAX_WAIT" ]; then
-        warn "org.xfce.Panel did not register within ${MAX_WAIT}s, continuing anyway."
-        break
-    fi
-done
+echo "INFO: Running Zyphor first boot setup..."
 
-# ── Apply XFCE Panel Profile ──────────────────────────────
+# Load panel profile
 if command -v xfce4-panel-profiles >/dev/null 2>&1; then
-    if [ -f "$PROFILE" ]; then
-        if xfce4-panel-profiles load "$PROFILE"; then
-            log "Panel profile loaded: $PROFILE"
-        else
-            warn "Failed to load panel profile: $PROFILE"
-        fi
-    else
-        warn "Panel profile not found: $PROFILE"
-    fi
-else
-    warn "xfce4-panel-profiles not installed, skipping panel layout."
+    xfce4-panel-profiles load "/usr/share/xfce4-panel-profiles/layouts/Redmond 7.tar.bz2"
 fi
 
-# ── Apply Zyphor icon to panel launchers ──────────────────
-if [ -d "$PANEL_CFG_DIR" ]; then
-    if [ -f "$LOGO" ]; then
-        find "$PANEL_CFG_DIR" -name "*.rc" \
-            -exec sed -i "s|^button-icon=.*|button-icon=$LOGO|" {} +
-        log "Applied Zyphor logo to panel launchers."
-    else
-        warn "Zyphor logo not found at $LOGO, skipping icon rebrand."
-    fi
-else
-    warn "Panel config dir not found: $PANEL_CFG_DIR"
+# Give XFCE a moment to create panel files
+sleep 2
+
+# Replace launcher icons
+if [ -d "$HOME/.config/xfce4/panel" ]; then
+    find "$HOME/.config/xfce4/panel/" -name "*.rc" \
+        -exec sed -i 's|^button-icon=.*|button-icon=/usr/share/pixmaps/zyphor-logo.png|' {} +
 fi
 
-# ── Apply Windows-10 theme ─────────────────────────────────
-if command -v xfconf-query >/dev/null 2>&1; then
-    xfconf-query -c xsettings -p /Net/ThemeName -s "Windows-10" \
-        && xfconf-query -c xfwm4 -p /general/theme -s "Windows-10" \
-        && log "Applied Windows-10 theme." \
-        || warn "Failed to apply theme."
-else
-    warn "xfconf-query not found, skipping theme."
-fi
+# Apply theme
+xfconf-query -c xsettings -p /Net/ThemeName -s Windows-10
+xfconf-query -c xfwm4 -p /general/theme -s Windows-10
 
-# ── Reload panel so changes take effect immediately ───────
-if command -v xfce4-panel >/dev/null 2>&1; then
-    xfce4-panel -r
-fi
+# Restart panel
+xfce4-panel -r >/dev/null 2>&1 &
 
-# ── Mark as done ───────────────────────────────────────────
 touch "$FLAG"
-log "Zyphor first boot setup complete."
+
+echo "INFO: Zyphor first boot setup complete."
