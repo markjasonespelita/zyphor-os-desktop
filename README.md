@@ -1,4 +1,4 @@
-![Zyphor Logo](os-config/variant-xfce/includes.chroot/usr/share/backgrounds/zyphor-grub-bootloader-screensavers/zyphor-full.png)
+![Zyphor Logo](showcase/zyphor-os-ada-lovelace-lts.png)
 
 ## 📚 Installer
 
@@ -19,6 +19,11 @@ After installing, open the terminal and run this command:
 ```bash
 zyphor help
 ```
+
+Old Versions  
+
+[v1.13.0-r5]((https://drive.google.com/uc?export=download&id=1CAUJLU0N_lXVSSejHHethg9BlYOVDi5r))  
+
 ---
 
 **Creator:** Mark Jason Penote Espelita, the Zyphor OS Community, and Contributors  
