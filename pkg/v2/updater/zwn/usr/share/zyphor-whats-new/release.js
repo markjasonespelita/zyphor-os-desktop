@@ -1,52 +1,55 @@
 const releaseNotes = {
     distro: "Zyphor OS Ada Lovelace LTS",
-    version: "2.2.1-ada-lovelace-lts-u44",
-    date: "Updated On: August 24, 2026 @ 07:59 PM",
+    version: "2.2.1-ada-lovelace-lts-u51",
+    date: "Updated On: August 29, 2026 @ 09:00 AM",
 
     sections: [
         {
-            "title": "Zyphor System Upgrade — Progress Visibility",
+            "title": "Package Updates",
             "items": [
-                "Fixed 'zyphor system upgrade' appearing to hang during step [1/4]",
-                "Removed the '-qq' quiet flag from 'apt update' so real package-list output streams to the user",
-                "'apt full-upgrade -y' output is no longer suppressed, showing live download/install progress",
-                "Prevents users from mistaking a slow-but-active update for a frozen process",
-                "Fallback: quiet steps can use a Braille-spinner helper ('zyphor_spinner') for visual feedback when output must stay suppressed"
+                "Upgraded 10 packages, including zyphor-cli, zyphor-os-release, zyphor-repo-config, zyphor-whats-new, zysh, zywin, exfatprogs, ksnip, nano, and libmsgraph-1-1",
+                "Installed 3 new dependencies: libkcolorpicker-qt6-0, libkimageannotator-qt6-0, and zyphor-archive-keyring",
+                "Added zyphor-archive-keyring to provide the official Zyphor OS repository signing key for package authenticity verification",
+                "Removed 6 obsolete packages, including older Qt5 dependencies and linux-base-7.0.12+kali-amd64 and linux-binary-7.0.12+kali-amd64",
+                "Removed dependencies associated with older Linux kernel versions 6.19.14 and 7.0.12",
+                "Cleaned up obsolete kernel dependencies and packages that are no longer required by the current Zyphor OS installation"
             ]
         },
         {
-            "title": "Zyphor Refresh Command",
+            "title": "ZyWin UI Installer and Zywin Configuration",
             "items": [
-                "Added 'zyphor refresh' command to reset the system to first-boot state",
-                "Automatically detects the current logged-in user without requiring sudo",
-                "Removes the '.zyphor_firstboot_done' marker file so the setup wizard runs again on next boot",
-                "Reboots the system automatically after the reset",
-                "Correction: The command name is zyphor refresh, not zyphor defaults."
+                "Added a Wine configuration check on launch that detects whether Wine is set up and prompts the user to run \"sudo zyphor setup wine\" if it isn't",
+                "Application installs are handed off to the zywin CLI, with live status updates and error reporting surfaced in the UI",
+                "Added a dark, Zyphor-branded interface consistent with the rest of the desktop",
+                "zywin CLI now ensures the Wine prefix directory (~/.local/zywin/prefixes/) exists before use, creating it automatically if missing"
             ]
         },
         {
-            "title": "Zyphor CLI Command Shortcut Update",
+            "title": "Zyphor Package Repository Signing",
             "items": [
-                "Added the 'zy' command as a shortcut alias for 'zyphor'",
-                "You can now use 'zy' instead of 'zyphor' for faster command execution",
-                "All existing Zyphor CLI commands can be used with the 'zy' shortcut"
+                "Added cryptographic GPG signing for the official Zyphor OS APT repository",
+                "Implemented signed InRelease and Release.gpg repository metadata",
+                "Added the official Zyphor OS archive keyring for APT repository verification",
+                "APT now verifies repository authenticity using the Zyphor archive signing key instead of relying on trusted=yes",
+                "Added automated repository signature generation and verification to the Zyphor build process"
             ]
         },
         {
-            "title": "Zyphor CLI Setup Dev Environment Update",
+            "title": "Zyphor System Upgrade — Linux Kernel 7.1.5",
             "items": [
-                "Added android-studio target to zyphor setup dev for provisioning Android Studio + Flutter",
-                "Installs base dependencies (git, curl, unzip, zip, default-jdk, adb, fastboot) via apt",
-                "Locates downloaded Android Studio and Flutter archives (checking ~/Downloads first) and extracts them to /opt",
-                "Appends Flutter/Android SDK PATH exports to the real user's shell rc file (.zshrc or .bashrc), guarded against duplicate entries on re-run"
+                "Updated 8 packages, including hyperv-daemons, Linux kernel components, zyphor-os-release, zyphor-whats-new, and zysh",
+                "Installed 7 new kernel-related dependencies required for Linux kernel 7.1.5+kali-amd64",
+                "Updated Linux kernel image, modules, headers, and build components",
+                "Completed the full upgrade with 0 packages removed and 0 packages left unupgraded"
             ]
         },
-        { 
-            "title": "Zyphor Repository Build & Configuration",
+        {
+            "title": "Zyphor Release Banner — Build Identification",
             "items": [
-                "Added LTS codename input to the zyphor build repo command for generating package repository metadata under the selected LTS codename",
-                "Updated the App Registry JSON repository URL from https://zyphor-os.github.io/v2-ada-lovelace/registry/registry.json to https://zyphor-os.github.io/ada-lovelace-lts/registry/registry.json",
-                "Updated the Zyphor APT repository from https://zyphor-os.github.io/v2-ada-lovelace stable main to https://zyphor-os.github.io/ada-lovelace-lts ada-lovelace main"
+                "Updated the system banner to dynamically display the OS release name from '/etc/os-release'",
+                "Added a 'Latest Build' indicator below the release banner",
+                "Displays the current build identifier (2026.08.22-r41) for easier release and troubleshooting reference",
+                "Improved banner readability by separating the OS release information from the build number"
             ]
         }
     ]

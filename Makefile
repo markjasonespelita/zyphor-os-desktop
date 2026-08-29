@@ -128,26 +128,23 @@ status:
 	git status
 
 add:
-	git add pkg/v2/updater/zor/DEBIAN/control
-	git commit -m "chore: updated zyphor updater package control"
-
-	git add pkg/v2/updater/zor/DEBIAN/postinst
-	git commit -m "chore: updated zyphor updater postinst"
-
-	git add pkg/v2/updater/zwn/DEBIAN/control
-	git commit -m "chore: updated zyphor whats new package control"
-
-	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
-	git commit -m "feat: updated zyphor whats new release notes"
-
-	git add pkg/v2/zcli/DEBIAN/control
-	git commit -m "chore: updated zyphor CLI package control"
-
-	git add pkg/v2/zcli/usr/lib/zyphor/system/upgrade
-	git commit -m "feat: updated zyphor system upgrade"
-	
 	git add Makefile
 	git commit -m "build: update repository automation"
+
+	git add pkg/v2/updater/zor/DEBIAN/control
+	git commit -m "chore: update zyphor updater control"
+
+	git add pkg/v2/updater/zor/DEBIAN/postinst
+	git commit -m "chore: update zyphor updater postinst"
+
+	git add pkg/v2/updater/zwn/DEBIAN/control
+	git commit -m "chore: update zyphor whats-new control"
+
+	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release-notes.html
+	git commit -m "docs: update zyphor whats-new release notes"
+
+	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
+	git commit -m "feat: update zyphor whats-new release script"
 
 push:
 	git push origin $(branch)
@@ -186,11 +183,14 @@ release:
 # 	zyphor build package pkg/v2/updater/updates
 # 	mv pkg/v2/updater/updates.deb zyphor-updates.deb
 
-	zyphor build package pkg/v2/zcli
-	mv pkg/v2/zcli.deb zyphor-cli.deb
+# 	zyphor build package pkg/v2/zcli
+# 	mv pkg/v2/zcli.deb zyphor-cli.deb
 
 # 	zyphor build package pkg/v2/zrc
 # 	mv pkg/v2/zrc.deb zyphor-repo-config.deb
+
+# 	zyphor build package pkg/v2/zyphor-archive-keyring
+# 	mv pkg/v2/zyphor-archive-keyring.deb zyphor-archive-keyring.deb
 
 # 	zyphor build package pkg/v2/zysh
 # 	mv pkg/v2/zysh.deb zysh.deb
@@ -201,6 +201,8 @@ release:
 # 	---
 
 	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
+
+# 	mv ./*.deb pkg/staging --verbose
 
 # BUILD AUTOMATION
 
