@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        if [ -f /etc/os-release ]; then
+            chown root:root /etc/os-release
+            chmod 555 /etc/os-release
+        fi
+        ;;
+esac
+
+exit 0

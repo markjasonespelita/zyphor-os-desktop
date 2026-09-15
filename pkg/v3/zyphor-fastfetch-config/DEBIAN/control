@@ -1,0 +1,8 @@
+Package: zyphor-fastfetch-config
+Version: 1.0.1-r2-alpha
+Section: utils
+Priority: optional
+Architecture: all
+Depends: bash, fastfetch
+Maintainer: Mark Jason P. Espelita
+Description: Zyphor OS Fastfetch Config

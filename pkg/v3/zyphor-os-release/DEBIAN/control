@@ -1,0 +1,9 @@
+Package: zyphor-os-release
+Version: 1.0.3-r4-alpha
+Section: base
+Priority: required
+Architecture: all
+Maintainer: Mark Jason Espelita
+Description: Zyphor OS release information
+ Provides operating system identification and release metadata
+ for Zyphor OS.

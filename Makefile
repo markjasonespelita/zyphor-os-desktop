@@ -76,7 +76,8 @@ devinit:
 	@echo "\n--- FIX DNS ---\n";
 	sudo cp /etc/resolv.conf extract/etc/resolv.conf
 	@echo "\n--- ENTER CHROOT ---\n";
-	sudo chroot extract /bin/zsh
+# 	sudo chroot extract /bin/zsh
+	sudo chroot extract /bin/bash
 
 devbuild:
 	@echo "\n--- UNMOUNTING ISO FILE READ ONLY MODE ---\n";
@@ -131,30 +132,11 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-
-	git add pkg/v2/updater/zor/DEBIAN/control
-	git commit -m "chore: update zyphor updater control"
-
-	git add pkg/v2/updater/zor/DEBIAN/postinst
-	git commit -m "chore: update zyphor updater postinst"
-
-	git add pkg/v2/updater/zwn/DEBIAN/control
-	git commit -m "chore: update zyphor whats-new control"
-
-	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
-	git commit -m "feat: update zyphor whats-new release script"
-
 	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
-	git commit -m "chore: update zyphor grub theme control"
+	git commit -m "chore: update zyphor grub theme package control"
 
 	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
-	git commit -m "feat: update zyphor grub theme postinst"
-
-	git add pkg/v2/zysh/DEBIAN/control
-	git commit -m "chore: update zysh package control"
-
-	git add pkg/v2/zysh/usr/share/zysh/prompt.zsh
-	git commit -m "feat: update zysh prompt"
+	git commit -m "chore: update zyphor grub theme postinst"
 
 push:
 	git push origin $(branch)
@@ -175,11 +157,11 @@ release:
 # 	zyphor build package pkg/v2/updater/updates
 # 	mv pkg/v2/updater/updates.deb zyphor-updates.deb
 
-	zyphor build package pkg/v2/updater/zor
-	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
+# 	zyphor build package pkg/v2/updater/zor
+# 	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
 
-	zyphor build package pkg/v2/updater/zwn
-	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
+# 	zyphor build package pkg/v2/updater/zwn
+# 	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
 
 # 	zyphor build package pkg/v2/zywin/zywin
 # 	mv pkg/v2/zywin/zywin.deb zywin.deb
@@ -202,11 +184,17 @@ release:
 # 	zyphor build package pkg/v2/zrc
 # 	mv pkg/v2/zrc.deb zyphor-repo-config.deb
 
-# 	zyphor build package pkg/v2/zyphor-archive-keyring
-# 	mv pkg/v2/zyphor-archive-keyring.deb zyphor-archive-keyring.deb
+# 	zyphor build package pkg/v3/zyphor-archive-keyring
+# 	mv pkg/v3/zyphor-archive-keyring.deb zyphor-archive-keyring.deb
 
-	zyphor build package pkg/v2/zysh
-	mv pkg/v2/zysh.deb zysh.deb
+# 	zyphor build package pkg/v3/zyphor-repo-config
+# 	mv pkg/v3/zyphor-repo-config.deb zyphor-repo-config.deb
+
+# 	zyphor build package pkg/v2/zysh
+# 	mv pkg/v2/zysh.deb zysh.deb
+
+# 	zyphor build package pkg/v2/zcc-web
+# 	mv pkg/v2/zcc-web.deb zyphor-command-center-web.deb
 		
 # 	zyphor build package pkg/v2/zycamera-launcher/zycamera-launcher
 # 	mv pkg/v2/zycamera-launcher/zycamera-launcher.deb zycamera-launcher.deb
@@ -214,12 +202,26 @@ release:
 # 	zyphor build package pkg/v2/zou/grub-screensaver-1
 # 	mv pkg/v2/zou/grub-screensaver-1.deb grub-screensaver-1.deb
 
-	zyphor build package pkg/v2/zyphor-grub-theme
-	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
+# 	zyphor build package pkg/v2/zyphor-grub-theme
+# 	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
+
+# 	zyphor build package pkg/v3/zyphor-desktop-environment-theme
+# 	mv pkg/v3/zyphor-desktop-environment-theme.deb zyphor-desktop-environment-theme.deb
+
+# 	zyphor build package pkg/v3/zyphor-os-release
+# 	mv pkg/v3/zyphor-os-release.deb zyphor-os-release.deb
+
+# 	zyphor build package pkg/v3/zyphor-grub-theme
+# 	mv pkg/v3/zyphor-grub-theme.deb zyphor-grub-theme.deb
+
+	zyphor build package pkg/v3/zyphor-fastfetch-config
+	mv pkg/v3/zyphor-fastfetch-config.deb zyphor-fastfetch-config.deb
 
 # 	---
 
-	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
+# 	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
+
+	mv ./*.deb ../zyphor-os.github.io/babbage-lts/pool/main/z --verbose
 
 # 	mv ./*.deb pkg/staging --verbose
 
