@@ -170,8 +170,17 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	git add pkg/v3/zyphor-desktop-environment/DEBIAN/control
-	git commit -m "chore: update desktop environment control"
+	git add scripts/devtools
+	git commit -m "feat: add development tools script"
+
+	git add scripts/livemode-config
+	git commit -m "feat: add live mode configuration script"
+
+	git add scripts/mount-ext-drive
+	git commit -m "feat: add external drive mount script"
+
+	git add scripts/mount-vm
+	git commit -m "feat: add VM mount script"
 
 push:
 	git push origin $(branch)
