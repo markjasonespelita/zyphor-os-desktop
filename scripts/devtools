@@ -1,0 +1,1 @@
+sudo apt update && sudo apt install -y make build-essential bc bison flex libssl-dev libelf-dev dwarves pkg-config libncurses-dev busybox-static libdw-dev grub-pc-bin xorriso cpio gzip squashfs-tools isolinux syslinux-common qemu-system-x86 qemu-utils
