@@ -170,9 +170,8 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-
-	git add pkg/v3/zyphor-face-icon/
-	git commit -m "feat: add zyphor face icon package"
+	git add pkg/v3/zyphor-desktop-environment/DEBIAN/control
+	git commit -m "chore: update desktop environment control"
 
 push:
 	git push origin $(branch)
@@ -248,8 +247,8 @@ release:
 # 	zyphor build package pkg/v3/zyphor-archive-keyring
 # 	mv pkg/v3/zyphor-archive-keyring.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
-# 	zyphor build package pkg/v3/zyphor-desktop-environment
-# # 	mv pkg/v3/zyphor-desktop-environment.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+	zyphor build package pkg/v3/zyphor-desktop-environment
+	mv pkg/v3/zyphor-desktop-environment.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 # 	mv pkg/v3/zyphor-desktop-environment.deb pkg/staging --verbose
 
 # 	zyphor build package pkg/v3/zyphor-os-release
@@ -276,8 +275,8 @@ release:
 # 	zyphor build package pkg/v3/zyphor-lightdm-theme
 # 	mv pkg/v3/zyphor-lightdm-theme.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
-	zyphor build package pkg/v3/zyphor-face-icon
-	mv pkg/v3/zyphor-face-icon.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+# 	zyphor build package pkg/v3/zyphor-face-icon
+# 	mv pkg/v3/zyphor-face-icon.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # BETHANY APPS
 
