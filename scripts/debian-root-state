@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+echo "=== Configuring root account ==="
+
+# Set root password field to '*'
+sed -i 's/^root:[^:]*:/root:*:/' /etc/shadow
+
+echo
+echo "=== Verifying /etc/shadow ==="
+grep '^root:' /etc/shadow
+
+echo
+echo "=== Verifying root account status ==="
+passwd -S root
+
+echo
+echo "=== Root account configuration complete ==="
