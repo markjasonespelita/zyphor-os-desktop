@@ -98,7 +98,7 @@ devbuild:
 	sudo xorriso -as mkisofs \
 	  -iso-level 3 \
 	  -full-iso9660-filenames \
-	  -volid "Kali Live" \
+	  -volid "Zyphor Operating System" \
 	  -o ../new-iso/zyphor-custom.iso \
 	  -eltorito-boot isolinux/isolinux.bin \
 	    -eltorito-catalog isolinux/boot.cat \
@@ -112,6 +112,38 @@ devbuild:
 	  -isohybrid-gpt-basdat \
 	  .)
 
+# Run after exiting the devinit chroot, before devbuild. Needs live-boot,
+# live-config and live-config-systemd installed in the chroot.
+devlive:
+	@echo "\n--- CHECKING LIVE-BOOT IN CHROOT ---\n";
+	@test -e extract/usr/share/initramfs-tools/scripts/live || \
+		{ echo "live-boot is not installed in extract/. In the chroot run:"; \
+		  echo "  apt install live-boot live-config live-config-systemd"; exit 1; }
+	@echo "\n--- REMOVING INSTALLED-SYSTEM LEFTOVERS ---\n";
+	echo "# UNCONFIGURED FSTAB FOR BASE SYSTEM" | sudo tee extract/etc/fstab
+	sudo truncate -s 0 extract/etc/machine-id
+	sudo rm -f --verbose extract/var/lib/dbus/machine-id extract/etc/initramfs-tools/conf.d/resume
+	sudo rm -rf --verbose extract/var/log/journal/*
+	@kver=$$(ls extract/boot/vmlinuz-* 2>/dev/null | sed 's|.*/vmlinuz-||' | sort -V | tail -1); \
+	test -n "$$kver" || { echo "No kernel found in extract/boot."; exit 1; }; \
+	echo "\n--- REBUILDING INITRAMFS $$kver ---\n"; \
+	for d in dev proc sys run; do \
+		mountpoint -q extract/$$d || sudo mount --bind /$$d extract/$$d || exit 1; \
+	done; \
+	sudo chroot extract update-initramfs -u -k $$kver || exit 1; \
+	echo "\n--- COPYING KERNEL $$kver TO iso/live ---\n"; \
+	sudo rm -f --verbose iso/live/vmlinuz* iso/live/initrd.img*; \
+	sudo cp --verbose extract/boot/vmlinuz-$$kver iso/live/vmlinuz; \
+	sudo cp --verbose extract/boot/initrd.img-$$kver iso/live/initrd.img
+	@echo "\n--- INSTALLING LIVE BOOT MENUS ---\n";
+	sudo cp --verbose devtools/live/isolinux-live.cfg iso/isolinux/live.cfg
+	sudo sed -i 's/^# *include live.cfg/include live.cfg/' iso/isolinux/menu.cfg
+	sudo cp --verbose devtools/live/grub-live.cfg iso/boot/grub/live.cfg
+	@grep -q '^source /boot/grub/live.cfg' iso/boot/grub/grub.cfg || \
+		sudo sed -i '/^source \/boot\/grub\/config.cfg/a source /boot/grub/live.cfg' iso/boot/grub/grub.cfg
+	@echo "\n--- EXCLUDING LIVE PACKAGES FROM INSTALLS ---\n";
+	sudo cp --verbose devtools/live/filesystem.packages-remove iso/live/filesystem.packages-remove
+
 vmcreate:
 	rm -rf new-iso/*.qcow2 --verbose
 # 	rm -rf new-iso/*.iso --verbose
@@ -123,6 +155,12 @@ install-cdrom:
 run-hdd:
 	sudo qemu-system-x86_64 --enable-kvm -m 4028 --hda new-iso/zyphor.qcow2 --boot c
 
+run-iso:
+	qemu-system-x86_64 -enable-kvm -m 4096 -cdrom $(or $(iso),new-iso/zyphor-custom.iso) -boot d
+
+run-iso-uefi:
+	qemu-system-x86_64 -enable-kvm -m 4096 -bios /usr/share/ovmf/OVMF.fd -cdrom $(or $(iso),new-iso/zyphor-custom.iso) -boot d
+
 # end...
 
 status:
@@ -132,11 +170,26 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
+	git add pkg/v2/updater/zor/DEBIAN/control
+	git commit -m "chore: update ZOR control"
+
+	git add pkg/v2/updater/zor/DEBIAN/postinst
+	git commit -m "chore: update ZOR postinst"
+
+	git add pkg/v2/updater/zwn/DEBIAN/control
+	git commit -m "chore: update ZWN control"
+
+	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
+	git commit -m "chore: update What's New release script"
+
 	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
-	git commit -m "chore: update zyphor grub theme package control"
+	git commit -m "chore: update GRUB theme control"
 
 	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
-	git commit -m "chore: update zyphor grub theme postinst"
+	git commit -m "chore: update GRUB theme postinst"
+
+	git add scripts/debian-root-state
+	git commit -m "feat: add Debian root state script"
 
 push:
 	git push origin $(branch)
@@ -154,14 +207,16 @@ switch:
 
 release:
 
+# V2 UPDATES ===========================================================
+
 # 	zyphor build package pkg/v2/updater/updates
 # 	mv pkg/v2/updater/updates.deb zyphor-updates.deb
 
-# 	zyphor build package pkg/v2/updater/zor
-# 	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
+	zyphor build package pkg/v2/updater/zor
+	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
 
-# 	zyphor build package pkg/v2/updater/zwn
-# 	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
+	zyphor build package pkg/v2/updater/zwn
+	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
 
 # 	zyphor build package pkg/v2/zywin/zywin
 # 	mv pkg/v2/zywin/zywin.deb zywin.deb
@@ -184,12 +239,6 @@ release:
 # 	zyphor build package pkg/v2/zrc
 # 	mv pkg/v2/zrc.deb zyphor-repo-config.deb
 
-# 	zyphor build package pkg/v3/zyphor-archive-keyring
-# 	mv pkg/v3/zyphor-archive-keyring.deb zyphor-archive-keyring.deb
-
-# 	zyphor build package pkg/v3/zyphor-repo-config
-# 	mv pkg/v3/zyphor-repo-config.deb zyphor-repo-config.deb
-
 # 	zyphor build package pkg/v2/zysh
 # 	mv pkg/v2/zysh.deb zysh.deb
 
@@ -202,26 +251,82 @@ release:
 # 	zyphor build package pkg/v2/zou/grub-screensaver-1
 # 	mv pkg/v2/zou/grub-screensaver-1.deb grub-screensaver-1.deb
 
-# 	zyphor build package pkg/v2/zyphor-grub-theme
-# 	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
+	zyphor build package pkg/v2/zyphor-grub-theme
+	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
 
-# 	zyphor build package pkg/v3/zyphor-desktop-environment-theme
-# 	mv pkg/v3/zyphor-desktop-environment-theme.deb zyphor-desktop-environment-theme.deb
+# V3 UPDATES ===========================================================
+
+# BETHANY MAIN
+
+# 	zyphor build package pkg/v3/zyphor-repo-config
+# 	cp pkg/v3/zyphor-repo-config.deb ../zyphor-os.github.io/bethany-lts/pool/main/z --verbose
+# 	mv pkg/v3/zyphor-repo-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-archive-keyring
+# 	mv pkg/v3/zyphor-archive-keyring.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-desktop-environment
+# 	mv pkg/v3/zyphor-desktop-environment.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+# 	mv pkg/v3/zyphor-desktop-environment.deb pkg/staging --verbose
 
 # 	zyphor build package pkg/v3/zyphor-os-release
-# 	mv pkg/v3/zyphor-os-release.deb zyphor-os-release.deb
+# 	mv pkg/v3/zyphor-os-release.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/zyphor-grub-theme
-# 	mv pkg/v3/zyphor-grub-theme.deb zyphor-grub-theme.deb
+# 	mv pkg/v3/zyphor-grub-theme.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
-	zyphor build package pkg/v3/zyphor-fastfetch-config
-	mv pkg/v3/zyphor-fastfetch-config.deb zyphor-fastfetch-config.deb
+# 	zyphor build package pkg/v3/zyphor-fastfetch-config
+# 	mv pkg/v3/zyphor-fastfetch-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-background-themes
+# 	mv pkg/v3/zyphor-background-themes.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-bashrc-config
+# 	mv pkg/v3/zyphor-bashrc-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-plymouth
+# 	mv pkg/v3/zyphor-plymouth.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-plymouth-live
+# 	mv pkg/v3/zyphor-plymouth-live.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-lightdm-theme
+# 	mv pkg/v3/zyphor-lightdm-theme.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-face-icon
+# 	mv pkg/v3/zyphor-face-icon.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# BETHANY APPS
+
+# 	zyphor build package pkg/v3/apps/zyphor-cli
+# 	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/apps/zylearn/zylearn
+# 	mv pkg/v3/apps/zylearn/zylearn.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+	
+# 	zyphor build package pkg/v3/apps/zywin/zywin
+# 	mv pkg/v3/apps/zywin/zywin.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/apps/zywin-ui/zywin-ui
+# 	mv pkg/v3/apps/zywin-ui/zywin-ui.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/apps/zycamera-launcher/zycamera-launcher
+# 	mv pkg/v3/apps/zycamera-launcher/zycamera-launcher.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/apps/zyphor-command-center-web
+# 	mv pkg/v3/apps/zyphor-command-center-web.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/apps/zyphor-command-center
+# 	mv pkg/v3/apps/zyphor-command-center.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/apps/zyphor-whats-new
+# 	mv pkg/v3/apps/zyphor-whats-new.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
 
 # 	---
 
-# 	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
+	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
 
-	mv ./*.deb ../zyphor-os.github.io/babbage-lts/pool/main/z --verbose
+# 	mv ./*.deb ../zyphor-os.github.io/bethany-lts/pool/main/z --verbose
 
 # 	mv ./*.deb pkg/staging --verbose
 

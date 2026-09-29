@@ -4,7 +4,13 @@
 
 Download the latest **Zyphor OS ISO** and get started in minutes.
 
-👉 **[Click Here To Download Zyphor Operating System ISO (v2.2.1)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v2.2.1-xfce-amd64.iso)** - Main lightweight desktop release  
+👉 **[Click Here To Download Zyphor OS 1 (v1.13.0)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v1.13.0-xfce-amd64.iso)** - The first initial version (end of life).  
+
+👉 **[Click Here To Download Zyphor OS 2 "Ada Lovelace" LTS (v2.2.1)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v2.2.1-ada-lovelace-lts-xfce-amd64.iso)** - Current LTS version.  
+
+👉 **[Click Here To Download Zyphor OS 3 "Bethany" LTS (v3.1.0-alpha)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v3.0.0-bethany-lts-alpha-xfce-live-amd64.iso)** - Future LTS version with Live Mode. Alpha release for testing.  
+
+---
 
 👉 **[Click Here To Download Zyphor Horizon ISO (v1.0.0-beta-2026.06.14-r1)](https://drive.google.com/uc?export=download&id=1eRYZQN7W-4aB1hp6SXclQwdO8Qzh31Ko)** - Experimental / futuristic preview release  
 
@@ -62,6 +68,7 @@ Contributors are not limited to software developers. Some collaborators contribu
 | <img src="https://github.com/Dfaulthexa.png?size=60" width="60" height="60"> | [Louie Nhelson Puno](https://github.com/Dfaulthexa) | Graphic Designer |
 | <img src="https://github.com/JanRey36.png?size=60" width="60" height="60"> | [John Rey A. Castillo](https://github.com/JanRey36) | Full Stack Web Developer |
 | <img src="https://github.com/Vincere20.png?size=60" width="60" height="60"> | [Remy A. Lingaya](https://github.com/Vincere20) | Social Media Manager |
+| <img src="https://github.com/dvbondoy.png?size=60" width="60" height="60"> | [Dioscoro Valenzuela Bondoy III](https://github.com/dvbondoy) | Core OS Developer |
 
 ---
 

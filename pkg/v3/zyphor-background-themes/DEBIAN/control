@@ -1,0 +1,10 @@
+Package: zyphor-background-themes
+Version: 3.0.1-r10-alpha
+Section: x11
+Priority: optional
+Architecture: all
+Maintainer: Mark Jason Espelita <markjasonespelita@gmail.com>
+Description: Zyphor OS desktop-base theme
+ Zyphor OS desktop theme and background artwork.
+ Provides the default Zyphor OS desktop background
+ and theme assets for desktop environments.

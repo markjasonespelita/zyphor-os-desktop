@@ -1,11 +1,11 @@
-NAME="Zyphor OS v3"
-PRETTY_NAME="Zyphor OS 3 Babbage LTS"
+NAME="Zyphor OS 3 Bethany LTS"
+PRETTY_NAME="Zyphor OS 3 Bethany LTS"
 ID=zyphor
 ID_LIKE=debian
 VERSION_ID="3.0"
-VERSION="3 (Babbage LTS)"
-VERSION_CODENAME=babbage-lts
+VERSION="3 (Bethany LTS)"
+VERSION_CODENAME=bethany-lts
 
 HOME_URL="https://zyphor-os.vercel.app"
-SUPPORT_URL="https://zyphor-os.vercel.app"
-BUG_REPORT_URL="https://zyphor-os.vercel.app"
+SUPPORT_URL="https://www.facebook.com/profile.php?id=61573426796629"
+BUG_REPORT_URL="https://github.com/zyphor-os/zyphor-os-desktop/issues"
