@@ -170,20 +170,11 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
+	git add pkg/v3/zyphor-calamares-settings/DEBIAN/control
+	git commit -m "chore: update Calamares settings control"
+
 	git add pkg/v3/zyphor-calamares-settings/etc/calamares/settings.conf
 	git commit -m "chore: update Calamares settings"
-
-	git add pkg/v3/zyphor-calamares-settings/usr/share/zyphor/zyphor-finish-install
-	git commit -m "chore: update Zyphor finish install"
-
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/branding/
-	git commit -m "chore: add Calamares branding configuration"
-
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/modules/
-	git commit -m "chore: add Calamares module configuration"
-
-	git add scripts/debian-sources
-	git commit -m "chore: add Debian sources script"
 
 push:
 	git push origin $(branch)
