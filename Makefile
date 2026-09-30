@@ -170,11 +170,29 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	git add pkg/v3/zyphor-repo-config/DEBIAN/control
-	git commit -m "chore: update zyphor repo config package control"
+	git add pkg/v2/updater/zor/DEBIAN/control
+	git commit -m "chore: update ZOR control"
 
-	git add pkg/v3/zyphor-repo-config/DEBIAN/postinst
-	git commit -m "chore: update zyphor repo config package postinst"
+	git add pkg/v2/updater/zor/DEBIAN/postinst
+	git commit -m "chore: update ZOR postinst"
+
+	git add pkg/v2/updater/zwn/DEBIAN/control
+	git commit -m "chore: update ZWN control"
+
+	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
+	git commit -m "chore: update What's New release script"
+
+	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
+	git commit -m "chore: update GRUB theme control"
+
+	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
+	git commit -m "chore: update GRUB theme postinst"
+
+	git add pkg/v3/zyphor-bashrc-config/DEBIAN/control
+	git commit -m "chore: update bashrc config control"
+
+	git add pkg/v3/zyphor-bashrc-config/etc/bashrc.d/zyphor.sh
+	git commit -m "chore: update Zyphor bash configuration"
 
 push:
 	git push origin $(branch)
@@ -243,8 +261,8 @@ release:
 
 # BETHANY MAIN
 
-	zyphor build package pkg/v3/zyphor-repo-config
-	mv pkg/v3/zyphor-repo-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+# 	zyphor build package pkg/v3/zyphor-repo-config
+# 	mv pkg/v3/zyphor-repo-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/zyphor-archive-keyring
 # 	mv pkg/v3/zyphor-archive-keyring.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
@@ -265,8 +283,8 @@ release:
 # 	zyphor build package pkg/v3/zyphor-background-themes
 # 	mv pkg/v3/zyphor-background-themes.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
-# 	zyphor build package pkg/v3/zyphor-bashrc-config
-# 	mv pkg/v3/zyphor-bashrc-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+	zyphor build package pkg/v3/zyphor-bashrc-config
+	mv pkg/v3/zyphor-bashrc-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/zyphor-plymouth
 # 	mv pkg/v3/zyphor-plymouth.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
