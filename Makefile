@@ -170,29 +170,20 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	git add pkg/v2/updater/zor/DEBIAN/control
-	git commit -m "chore: update ZOR control"
+	git add pkg/v3/zyphor-calamares-settings/etc/calamares/settings.conf
+	git commit -m "chore: update Calamares settings"
 
-	git add pkg/v2/updater/zor/DEBIAN/postinst
-	git commit -m "chore: update ZOR postinst"
+	git add pkg/v3/zyphor-calamares-settings/usr/share/zyphor/zyphor-finish-install
+	git commit -m "chore: update Zyphor finish install"
 
-	git add pkg/v2/updater/zwn/DEBIAN/control
-	git commit -m "chore: update ZWN control"
+	git add pkg/v3/zyphor-calamares-settings/etc/calamares/branding/
+	git commit -m "chore: add Calamares branding configuration"
 
-	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
-	git commit -m "chore: update What's New release script"
+	git add pkg/v3/zyphor-calamares-settings/etc/calamares/modules/
+	git commit -m "chore: add Calamares module configuration"
 
-	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
-	git commit -m "chore: update GRUB theme control"
-
-	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
-	git commit -m "chore: update GRUB theme postinst"
-
-	git add pkg/v3/zyphor-bashrc-config/DEBIAN/control
-	git commit -m "chore: update bashrc config control"
-
-	git add pkg/v3/zyphor-bashrc-config/etc/bashrc.d/zyphor.sh
-	git commit -m "chore: update Zyphor bash configuration"
+	git add scripts/debian-sources
+	git commit -m "chore: add Debian sources script"
 
 push:
 	git push origin $(branch)
@@ -283,8 +274,8 @@ release:
 # 	zyphor build package pkg/v3/zyphor-background-themes
 # 	mv pkg/v3/zyphor-background-themes.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
-	zyphor build package pkg/v3/zyphor-bashrc-config
-	mv pkg/v3/zyphor-bashrc-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+# 	zyphor build package pkg/v3/zyphor-bashrc-config
+# 	mv pkg/v3/zyphor-bashrc-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/zyphor-plymouth
 # 	mv pkg/v3/zyphor-plymouth.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
@@ -297,6 +288,9 @@ release:
 
 # 	zyphor build package pkg/v3/zyphor-face-icon
 # 	mv pkg/v3/zyphor-face-icon.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+	zyphor build package pkg/v3/zyphor-calamares-settings
+	mv pkg/v3/zyphor-calamares-settings.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # BETHANY APPS
 
