@@ -1,0 +1,37 @@
+#!/bin/sh
+
+set -e
+
+echo "INFO: Finishing Zyphor OS installation..."
+
+install_zyphor_plymouth() {
+    echo "INFO: Installing Zyphor Plymouth..."
+
+    if dpkg -s zyphor-plymouth >/dev/null 2>&1; then
+        echo "INFO: zyphor-plymouth is already installed."
+        return 0
+    fi
+
+    echo "INFO: Installing zyphor-plymouth..."
+    apt-get install -y zyphor-plymouth
+}
+
+configure_zyphor() {
+    echo "INFO: Applying Zyphor OS configuration..."
+
+    # Zyphor-specific configuration goes here.
+    #
+    # Wallpapers
+    # XFCE configuration
+    # GRUB
+    # Zyphor branding
+    # First boot
+    # etc.
+}
+
+install_zyphor_plymouth
+configure_zyphor
+
+echo "INFO: Zyphor OS installation configuration complete."
+
+exit 0
