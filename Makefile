@@ -167,17 +167,18 @@ status:
 	git status
 
 add:
+# 
 	git add Makefile
 	git commit -m "build: update repository automation"
 
 	git add pkg/v3/zyphor-calamares-settings/DEBIAN/control
-	git commit -m "chore: update zyphor Calamares settings control"
+	git commit -m "chore: update Calamares settings control"
 
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/branding/zyphor/slide1.png
-	git commit -m "chore: update Zyphor Calamares branding slide"
+	git add pkg/v3/zyphor-calamares-settings/etc/calamares/branding/zyphor/show.qml
+	git commit -m "chore: update Calamares branding show.qml"
 
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/modules/packages.conf
-	git commit -m "chore: update Calamares packages configuration"
+	git add pkg/v3/zyphor-calamares-settings/etc/calamares/settings.conf
+	git commit -m "chore: update Calamares settings configuration"
 
 push:
 	git push origin $(branch)
