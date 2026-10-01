@@ -4,6 +4,25 @@ set -e
 
 echo "INFO: Finishing Zyphor OS installation..."
 
+configure_apt_sources() {
+    echo "INFO: Configuring Debian Trixie APT sources..."
+
+    grep -qF 'deb https://deb.debian.org/debian trixie main contrib non-free non-free-firmware' /etc/apt/sources.list ||
+        echo 'deb https://deb.debian.org/debian trixie main contrib non-free non-free-firmware' >> /etc/apt/sources.list
+
+    grep -qF 'deb https://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware' /etc/apt/sources.list ||
+        echo 'deb https://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware' >> /etc/apt/sources.list
+
+    grep -qF 'deb https://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware' /etc/apt/sources.list ||
+        echo 'deb https://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware' >> /etc/apt/sources.list
+}
+
+update_apt() {
+    echo "INFO: Updating APT package lists..."
+
+    apt-get update
+}
+
 install_zyphor_plymouth() {
     echo "INFO: Installing Zyphor Plymouth..."
 
@@ -29,6 +48,8 @@ configure_zyphor() {
     # etc.
 }
 
+configure_apt_sources
+update_apt
 install_zyphor_plymouth
 configure_zyphor
 
