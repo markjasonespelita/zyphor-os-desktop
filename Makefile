@@ -173,11 +173,14 @@ add:
 	git add pkg/v3/zyphor-calamares-settings/DEBIAN/control
 	git commit -m "chore: update Calamares settings control"
 
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/branding/zyphor/show.qml
-	git commit -m "chore: update Calamares branding show.qml"
+	git add pkg/v3/zyphor-calamares-settings/etc/calamares/modules/zyphor-finish-install.conf
+	git commit -m "chore: update zyphor finish install module configuration"
 
 	git add pkg/v3/zyphor-calamares-settings/etc/calamares/settings.conf
 	git commit -m "chore: update Calamares settings configuration"
+
+	git add pkg/v3/zyphor-calamares-settings/usr/share/zyphor/zyphor-finish-install
+	git commit -m "chore: update zyphor finish install script"
 
 push:
 	git push origin $(branch)
