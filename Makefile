@@ -170,17 +170,23 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	git add pkg/v3/zyphor-calamares-settings/DEBIAN/control
-	git commit -m "chore: update Calamares settings control"
+	git add pkg/v2/updater/zor/DEBIAN/control
+	git commit -m "chore: update zyphor OS release updater control"
 
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/modules/zyphor-finish-install.conf
-	git commit -m "chore: update zyphor finish install module configuration"
+	git add pkg/v2/updater/zor/DEBIAN/postinst
+	git commit -m "chore: update zyphor OS release updater postinst"
 
-	git add pkg/v3/zyphor-calamares-settings/etc/calamares/settings.conf
-	git commit -m "chore: update Calamares settings configuration"
+	git add pkg/v2/updater/zwn/DEBIAN/control
+	git commit -m "chore: update zyphor What's New updater control"
 
-	git add pkg/v3/zyphor-calamares-settings/usr/share/zyphor/zyphor-finish-install
-	git commit -m "chore: update zyphor finish install script"
+	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
+	git commit -m "chore: update zyphor What's New release script"
+
+	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
+	git commit -m "chore: update zyphor GRUB theme control"
+
+	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
+	git commit -m "chore: update zyphor GRUB theme postinst"
 
 push:
 	git push origin $(branch)
@@ -203,11 +209,11 @@ release:
 # 	zyphor build package pkg/v2/updater/updates
 # 	mv pkg/v2/updater/updates.deb zyphor-updates.deb
 
-# 	zyphor build package pkg/v2/updater/zor
-# 	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
+	zyphor build package pkg/v2/updater/zor
+	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
 
-# 	zyphor build package pkg/v2/updater/zwn
-# 	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
+	zyphor build package pkg/v2/updater/zwn
+	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
 
 # 	zyphor build package pkg/v2/zywin/zywin
 # 	mv pkg/v2/zywin/zywin.deb zywin.deb
@@ -242,8 +248,8 @@ release:
 # 	zyphor build package pkg/v2/zou/grub-screensaver-1
 # 	mv pkg/v2/zou/grub-screensaver-1.deb grub-screensaver-1.deb
 
-# 	zyphor build package pkg/v2/zyphor-grub-theme
-# 	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
+	zyphor build package pkg/v2/zyphor-grub-theme
+	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
 
 # V3 UPDATES ===========================================================
 
@@ -286,8 +292,8 @@ release:
 # 	zyphor build package pkg/v3/zyphor-face-icon
 # 	mv pkg/v3/zyphor-face-icon.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
-	zyphor build package pkg/v3/zyphor-calamares-settings
-	mv pkg/v3/zyphor-calamares-settings.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+# 	zyphor build package pkg/v3/zyphor-calamares-settings
+# 	mv pkg/v3/zyphor-calamares-settings.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # BETHANY APPS
 
@@ -317,7 +323,7 @@ release:
 
 # 	---
 
-# 	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
+	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
 
 # 	mv ./*.deb ../zyphor-os.github.io/bethany-lts/pool/main/z --verbose
 
