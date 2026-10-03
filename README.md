@@ -8,7 +8,7 @@ Download the latest **Zyphor OS ISO** and get started in minutes.
 
 👉 **[Click Here To Download Zyphor OS 2 "Ada Lovelace" LTS (v2.2.1)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v2.2.1-ada-lovelace-lts-xfce-amd64.iso)** - Current LTS version.  
 
-👉 **[Click Here To Download Zyphor OS 3 "Bethany" LTS (v3.1.0-alpha)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v3.0.0-bethany-lts-alpha-xfce-live-amd64.iso)** - Future LTS version with Live Mode. Alpha release for testing.  
+👉 **[Click Here To Download Zyphor OS 3 "Bethany" LTS (v3.2.0-alpha)](https://white-opossum-308929.hostingersite.com/zyphor-os-iso/zyphor-os-desktop-v3.2.0-bethany-lts-alpha-xfce-live-amd64.iso)** - Future LTS version with Live Mode. Alpha release for testing.  
 
 ---
 
@@ -31,7 +31,7 @@ Old Versions
 **Creator:** Mark Jason Penote Espelita, the Zyphor OS Community, and Contributors  
 **Facebook Account:** https://www.facebook.com/mark.jason.penote.espelita  
 **Facebook Page:** https://www.facebook.com/profile.php?id=61573426796629  
-**Website:** https://zyphor-os.vercel.app  
+**Website:** https://zyphor-os.github.io  
 **Email:** markjasonespelita02@gmail.com  
 **Contact:** 09978972884 | 09203454006  
 **Our Philosophy:** [ZyphorOSPhilosophy.docx](https://github.com/markjasonespelita/zyphor_os/blob/master/DOCUMENTATION/ZyphorOSPhilosophy.docx)  
@@ -46,7 +46,7 @@ Zyphor OS Minimal - https://github.com/zyphor-os/zyphor-os-minimal
 
 Zyphor OS Documentation - https://github.com/zyphor-os/zyphor-os.github.io
 
-Website - https://zyphor-os.vercel.app
+Website - https://zyphor-os.github.io
 
 ---
 

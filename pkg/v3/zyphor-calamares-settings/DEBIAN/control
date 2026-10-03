@@ -1,0 +1,10 @@
+Package: zyphor-calamares-settings
+Version: 1.0.6-r7-alpha
+Section: admin
+Priority: optional
+Architecture: all
+Depends: calamares
+Maintainer: Mark Jason Espelita <markjasonespelita@gmail.com>
+Description: Zyphor OS Calamares installer configuration
+ Provides Calamares configuration, branding, modules, and
+ Zyphor-specific installation scripts for Zyphor OS.

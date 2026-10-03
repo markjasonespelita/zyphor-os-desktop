@@ -171,25 +171,16 @@ add:
 	git commit -m "build: update repository automation"
 
 	git add pkg/v2/updater/zor/DEBIAN/control
-	git commit -m "chore: update ZOR control"
+	git commit -m "chore: update zyphor OS release updater control"
 
 	git add pkg/v2/updater/zor/DEBIAN/postinst
-	git commit -m "chore: update ZOR postinst"
+	git commit -m "chore: update zyphor OS release updater postinst"
 
-	git add pkg/v2/updater/zwn/DEBIAN/control
-	git commit -m "chore: update ZWN control"
+	git add pkg/v3/zyphor-os-release/DEBIAN/control
+	git commit -m "chore: update zyphor OS release control"
 
-	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
-	git commit -m "chore: update What's New release script"
-
-	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
-	git commit -m "chore: update GRUB theme control"
-
-	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
-	git commit -m "chore: update GRUB theme postinst"
-
-	git add scripts/debian-root-state
-	git commit -m "feat: add Debian root state script"
+	git add pkg/v3/zyphor-os-release/etc/os-release
+	git commit -m "chore: update zyphor OS release information"
 
 push:
 	git push origin $(branch)
@@ -215,8 +206,8 @@ release:
 	zyphor build package pkg/v2/updater/zor
 	mv pkg/v2/updater/zor.deb zyphor-os-release.deb
 
-	zyphor build package pkg/v2/updater/zwn
-	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
+# 	zyphor build package pkg/v2/updater/zwn
+# 	mv pkg/v2/updater/zwn.deb zyphor-whats-new.deb
 
 # 	zyphor build package pkg/v2/zywin/zywin
 # 	mv pkg/v2/zywin/zywin.deb zywin.deb
@@ -251,15 +242,14 @@ release:
 # 	zyphor build package pkg/v2/zou/grub-screensaver-1
 # 	mv pkg/v2/zou/grub-screensaver-1.deb grub-screensaver-1.deb
 
-	zyphor build package pkg/v2/zyphor-grub-theme
-	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
+# 	zyphor build package pkg/v2/zyphor-grub-theme
+# 	mv pkg/v2/zyphor-grub-theme.deb zyphor-grub-theme.deb
 
 # V3 UPDATES ===========================================================
 
 # BETHANY MAIN
 
 # 	zyphor build package pkg/v3/zyphor-repo-config
-# 	cp pkg/v3/zyphor-repo-config.deb ../zyphor-os.github.io/bethany-lts/pool/main/z --verbose
 # 	mv pkg/v3/zyphor-repo-config.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/zyphor-archive-keyring
@@ -269,8 +259,8 @@ release:
 # 	mv pkg/v3/zyphor-desktop-environment.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 # 	mv pkg/v3/zyphor-desktop-environment.deb pkg/staging --verbose
 
-# 	zyphor build package pkg/v3/zyphor-os-release
-# 	mv pkg/v3/zyphor-os-release.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+	zyphor build package pkg/v3/zyphor-os-release
+	mv pkg/v3/zyphor-os-release.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/zyphor-grub-theme
 # 	mv pkg/v3/zyphor-grub-theme.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
@@ -295,6 +285,9 @@ release:
 
 # 	zyphor build package pkg/v3/zyphor-face-icon
 # 	mv pkg/v3/zyphor-face-icon.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
+
+# 	zyphor build package pkg/v3/zyphor-calamares-settings
+# 	mv pkg/v3/zyphor-calamares-settings.deb ../zyphor-os.github.io/bethany-lts/bethany/pool/main/z --verbose
 
 # BETHANY APPS
 
