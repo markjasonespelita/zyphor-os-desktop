@@ -182,11 +182,23 @@ add:
 	git add pkg/v2/updater/zwn/usr/share/zyphor-whats-new/release.js
 	git commit -m "chore: update zyphor What's New release script"
 
+	git add pkg/v2/zcli/DEBIAN/control
+	git commit -m "chore: update zcli control"
+
+	git add pkg/v2/zcli/usr/lib/zyphor/core/help
+	git commit -m "chore: update zcli help"
+
 	git add pkg/v2/zyphor-grub-theme/DEBIAN/control
 	git commit -m "chore: update zyphor GRUB theme control"
 
 	git add pkg/v2/zyphor-grub-theme/DEBIAN/postinst
 	git commit -m "chore: update zyphor GRUB theme postinst"
+
+	git add pkg/v3/apps/zyphor-cli/DEBIAN/control
+	git commit -m "chore: update zyphor CLI control"
+
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/core/help
+	git commit -m "chore: update zyphor CLI help"
 
 push:
 	git push origin $(branch)
@@ -230,8 +242,8 @@ release:
 # 	zyphor build package pkg/v2/updater/updates
 # 	mv pkg/v2/updater/updates.deb zyphor-updates.deb
 
-# 	zyphor build package pkg/v2/zcli
-# 	mv pkg/v2/zcli.deb zyphor-cli.deb
+	zyphor build package pkg/v2/zcli
+	mv pkg/v2/zcli.deb zyphor-cli.deb
 
 # 	zyphor build package pkg/v2/zrc
 # 	mv pkg/v2/zrc.deb zyphor-repo-config.deb
@@ -297,8 +309,8 @@ release:
 
 # BETHANY APPS
 
-# 	zyphor build package pkg/v3/apps/zyphor-cli
-# 	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+	zyphor build package pkg/v3/apps/zyphor-cli
+	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
 
 # 	zyphor build package pkg/v3/apps/zylearn/zylearn
 # 	mv pkg/v3/apps/zylearn/zylearn.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
