@@ -6,6 +6,6 @@ VERSION_ID="3.0"
 VERSION="3 (Bethany LTS)"
 VERSION_CODENAME=bethany-lts
 
-HOME_URL="https://zyphor-os.vercel.app"
+HOME_URL="https://zyphor-os.github.io"
 SUPPORT_URL="https://www.facebook.com/profile.php?id=61573426796629"
-BUG_REPORT_URL="https://github.com/zyphor-os/zyphor-os-desktop/issues"
+BUG_REPORT_URL="https://github.com/zyphor-os/zyphor-os-3-bethany-lts/issues"
