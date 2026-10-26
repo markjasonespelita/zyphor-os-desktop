@@ -170,29 +170,25 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	# Update ZOR updater package control metadata
-	git add pkg/v2/legacy/updater/zor/DEBIAN/control
-	git commit -m "pkg(zor): update updater package metadata"
+	# Remove DEV24377965
+	git add -u DEV24377965
+	git commit -m "docs: remove DEV24377965"
 
-	# Update ZOR updater post-install script
-	git add pkg/v2/legacy/updater/zor/DEBIAN/postinst
-	git commit -m "fix(zor): update updater post-install script"
+	# Remove DEVLOG
+	git add -u DEVLOG
+	git commit -m "docs: remove DEVLOG"
 
-	# Update ZWN package control metadata
-	git add pkg/v2/legacy/updater/zwn/DEBIAN/control
-	git commit -m "pkg(zwn): update package metadata"
+	# Remove ONBOARDING
+	git add -u ONBOARDING
+	git commit -m "docs: remove ONBOARDING"
 
-	# Update Zyphor What's New release data
-	git add pkg/v2/legacy/updater/zwn/usr/share/zyphor-whats-new/release.js
-	git commit -m "feat(zwn): update release data"
+	# Remove test file
+	git add -u test
+	git commit -m "test: remove obsolete test file"
 
-	# Update Zyphor GRUB theme package metadata
-	git add pkg/v2/legacy/zyphor-grub-theme/DEBIAN/control
-	git commit -m "pkg(grub-theme): update package metadata"
-
-	# Update Zyphor GRUB theme post-install script
-	git add pkg/v2/legacy/zyphor-grub-theme/DEBIAN/postinst
-	git commit -m "fix(grub-theme): update post-install script"
+	# Add POLICY.md
+	git add POLICY.md
+	git commit -m "docs: add project policy"
 
 push:
 	git push origin $(branch)
