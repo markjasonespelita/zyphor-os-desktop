@@ -170,10 +170,6 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-# Update Makefile
-	git add Makefile
-	git commit -m "build: update Makefile"
-
 	# Update ZOR updater package control metadata
 	git add pkg/v2/legacy/updater/zor/DEBIAN/control
 	git commit -m "pkg(zor): update updater package metadata"
