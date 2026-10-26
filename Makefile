@@ -170,13 +170,13 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	# Update Zyphor Smart Downloads v3 package control
-	git add pkg/v3/apps/zyphor-smart-downloads/DEBIAN/control
-	git commit -m "build(zyphor-smart-downloads): update v3 package control"
+	# Update Zyphor CLI package control metadata
+	git add pkg/v3/apps/zyphor-cli/DEBIAN/control
+	git commit -m "pkg(zyphor-cli): update package control metadata"
 
-	# Add Zyphor Smart Downloads to Ada Lovelace LTS Reforged
-	git add pkg/v2/reforged/apps/zyphor-smart-downloads/
-	git commit -m "feat(zyphor-smart-downloads): add Reforged package"
+	# Update Zyphor setup development script
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/setup/dev
+	git commit -m "feat(zyphor-cli): update setup dev script"
 
 push:
 	git push origin $(branch)
@@ -300,8 +300,8 @@ release:
 # 	zyphor build package pkg/v2/reforged/apps/zywin-ui/zywin-ui
 # 	mv pkg/v2/reforged/apps/zywin-ui/zywin-ui.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
 
-	zyphor build package pkg/v2/reforged/apps/zyphor-smart-downloads
-	mv pkg/v2/reforged/apps/zyphor-smart-downloads.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
+# 	zyphor build package pkg/v2/reforged/apps/zyphor-smart-downloads
+# 	mv pkg/v2/reforged/apps/zyphor-smart-downloads.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
 
 # V3 UPDATES ===========================================================
 
@@ -352,8 +352,8 @@ release:
 
 # BETHANY APPS
 
-# 	zyphor build package pkg/v3/apps/zyphor-cli
-# 	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+	zyphor build package pkg/v3/apps/zyphor-cli
+	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
 
 # 	make -C pkg/v3/apps/zylearn clean
 # 	make -C pkg/v3/apps/zylearn
