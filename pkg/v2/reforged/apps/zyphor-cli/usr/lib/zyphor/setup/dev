@@ -214,6 +214,76 @@ _zyphor_install_composer() {
   rm -rf "$tmp"
 }
 
+# Real Desktop folder for a user (handles localized names via xdg-user-dir)
+_zyphor_user_desktop_dir() {
+  local user="$1" home="$2" dir=""
+
+  if command -v xdg-user-dir >/dev/null 2>&1; then
+    dir="$(sudo -u "$user" env HOME="$home" xdg-user-dir DESKTOP 2>/dev/null)"
+  fi
+
+  if [ -z "$dir" ] || [ "$dir" = "$home" ]; then
+    dir="$home/Desktop"
+  fi
+
+  echo "$dir"
+}
+
+# Create the Android Studio launcher: app menu entry + Desktop icon
+_zyphor_create_android_studio_launcher() {
+  local user="$1" home="$2"
+  local menu_file="/usr/share/applications/android-studio.desktop"
+  local icon="/opt/android-studio/bin/studio.png"
+  [ -f "$icon" ] || icon="/opt/android-studio/bin/studio.svg"
+
+  echo ""
+  echo "Zyphor: Creating Android Studio launcher..."
+
+  cat > "$menu_file" <<DESKTOP_EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Comment=Android IDE and Flutter development
+Exec=/opt/android-studio/bin/studio.sh %f
+Icon=$icon
+Terminal=false
+Categories=Development;IDE;
+StartupNotify=true
+StartupWMClass=jetbrains-studio
+DESKTOP_EOF
+  chmod 644 "$menu_file"
+  command -v update-desktop-database >/dev/null 2>&1 &&
+    update-desktop-database /usr/share/applications 2>/dev/null
+  echo "Zyphor: ✔ App menu entry added → $menu_file"
+
+  # Desktop icon
+  local desktop_dir desktop_file uid
+  desktop_dir="$(_zyphor_user_desktop_dir "$user" "$home")"
+
+  if [ ! -d "$desktop_dir" ]; then
+    echo "Zyphor: ⚠ Desktop folder not found ($desktop_dir) — skipping desktop icon"
+    return 0
+  fi
+
+  desktop_file="$desktop_dir/android-studio.desktop"
+  install -o "$user" -g "$(id -gn "$user")" -m 755 "$menu_file" "$desktop_file" || {
+    echo "Zyphor: ⚠ Could not create desktop icon"
+    return 0
+  }
+
+  # GNOME needs the icon marked as trusted before it can be double-clicked
+  uid="$(id -u "$user" 2>/dev/null)"
+  if command -v gio >/dev/null 2>&1 && [ -n "$uid" ]; then
+    sudo -u "$user" env \
+      DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$uid/bus" \
+      gio set "$desktop_file" metadata::trusted true >/dev/null 2>&1 || true
+  fi
+
+  echo "Zyphor: ✔ Desktop icon added → $desktop_file"
+  echo "Zyphor: If it shows a warning icon, right-click it → 'Allow Launching'"
+}
+
 # ======================================================================
 # ANDROID STUDIO + FLUTTER TARGET
 # ======================================================================
@@ -284,6 +354,11 @@ _zyphor_setup_android_studio() {
     }
     ln -sf /opt/android-studio/bin/studio.sh /usr/local/bin/android-studio
     echo "Zyphor: ✔ Android Studio installed → /opt/android-studio"
+  fi
+
+  # Launcher (runs even when the install was skipped, so re-runs repair it)
+  if [ -d /opt/android-studio ]; then
+    _zyphor_create_android_studio_launcher "$ORIGINAL_USER" "$ORIGINAL_HOME"
   fi
 
   # ------------------------------------------------------------------
@@ -358,6 +433,7 @@ EOF
 
   echo ""
   echo "Zyphor: ✔ Android Studio + Flutter environment ready"
+  echo "Zyphor: Launch it from the app menu, the desktop icon, or the terminal."
   echo "Zyphor: Run 'source $RC_FILE' or open a new terminal, then:"
   echo "  android-studio      # launch the IDE (finish the SDK wizard on first run)"
   echo "  flutter doctor      # verify the Flutter/Android toolchain"
@@ -1179,10 +1255,17 @@ _zyphor_undo_android_studio() {
   local RC_FILE
   RC_FILE="$(_zyphor_resolve_rc_file "$ORIGINAL_USER" "$ORIGINAL_HOME")"
 
+  local MENU_LAUNCHER="/usr/share/applications/android-studio.desktop"
+  local DESKTOP_DIR DESKTOP_LAUNCHER
+  DESKTOP_DIR="$(_zyphor_user_desktop_dir "$ORIGINAL_USER" "$ORIGINAL_HOME")"
+  DESKTOP_LAUNCHER="$DESKTOP_DIR/android-studio.desktop"
+
   local found=0
   echo "Zyphor: Found:"
   [ -d /opt/android-studio ]               && { echo "  /opt/android-studio";                 found=1; }
   [ -L /usr/local/bin/android-studio ]     && { echo "  /usr/local/bin/android-studio (link)"; found=1; }
+  [ -f "$MENU_LAUNCHER" ]                  && { echo "  $MENU_LAUNCHER (app menu entry)";      found=1; }
+  [ -f "$DESKTOP_LAUNCHER" ]               && { echo "  $DESKTOP_LAUNCHER (desktop icon)";     found=1; }
   [ -d /opt/flutter ]                      && { echo "  /opt/flutter";                         found=1; }
   grep -q "# ZYPHOR: android-studio/flutter" "$RC_FILE" 2>/dev/null \
                                            && { echo "  PATH block in $RC_FILE";               found=1; }
@@ -1197,6 +1280,18 @@ _zyphor_undo_android_studio() {
     [ -d /opt/android-studio ] && rm -rf /opt/android-studio
     [ -L /usr/local/bin/android-studio ] && rm -f /usr/local/bin/android-studio
     [ -d /opt/flutter ] && rm -rf /opt/flutter
+
+    # Launchers (app menu + desktop icon)
+    if [ -f "$MENU_LAUNCHER" ]; then
+      rm -f "$MENU_LAUNCHER"
+      command -v update-desktop-database >/dev/null 2>&1 &&
+        update-desktop-database /usr/share/applications 2>/dev/null
+      echo "Zyphor: ✔ App menu entry removed"
+    fi
+    if [ -f "$DESKTOP_LAUNCHER" ]; then
+      rm -f "$DESKTOP_LAUNCHER"
+      echo "Zyphor: ✔ Desktop icon removed"
+    fi
 
     if grep -q "# ZYPHOR: android-studio/flutter" "$RC_FILE" 2>/dev/null; then
       # Backup first; then delete only the exact lines the setup added.
