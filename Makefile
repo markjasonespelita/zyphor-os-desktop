@@ -170,13 +170,33 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	# Update Zyphor CLI package control metadata
-	git add pkg/v2/reforged/apps/zyphor-cli/DEBIAN/control
-	git commit -m "pkg(zyphor-cli): update Reforged package control metadata"
+# Update Makefile
+	git add Makefile
+	git commit -m "build: update Makefile"
 
-	# Update Zyphor CLI setup development script
-	git add pkg/v2/reforged/apps/zyphor-cli/usr/lib/zyphor/setup/dev
-	git commit -m "feat(zyphor-cli): update Reforged setup dev script"
+	# Update ZOR updater package control metadata
+	git add pkg/v2/legacy/updater/zor/DEBIAN/control
+	git commit -m "pkg(zor): update updater package metadata"
+
+	# Update ZOR updater post-install script
+	git add pkg/v2/legacy/updater/zor/DEBIAN/postinst
+	git commit -m "fix(zor): update updater post-install script"
+
+	# Update ZWN package control metadata
+	git add pkg/v2/legacy/updater/zwn/DEBIAN/control
+	git commit -m "pkg(zwn): update package metadata"
+
+	# Update Zyphor What's New release data
+	git add pkg/v2/legacy/updater/zwn/usr/share/zyphor-whats-new/release.js
+	git commit -m "feat(zwn): update release data"
+
+	# Update Zyphor GRUB theme package metadata
+	git add pkg/v2/legacy/zyphor-grub-theme/DEBIAN/control
+	git commit -m "pkg(grub-theme): update package metadata"
+
+	# Update Zyphor GRUB theme post-install script
+	git add pkg/v2/legacy/zyphor-grub-theme/DEBIAN/postinst
+	git commit -m "fix(grub-theme): update post-install script"
 
 push:
 	git push origin $(branch)
@@ -199,11 +219,11 @@ release:
 # 	zyphor build package pkg/v2/legacy/updater/updates
 # 	mv pkg/v2/legacy/updater/updates.deb zyphor-updates.deb
 
-# 	zyphor build package pkg/v2/legacy/updater/zor
-# 	mv pkg/v2/legacy/updater/zor.deb zyphor-os-release.deb
+	zyphor build package pkg/v2/legacy/updater/zor
+	mv pkg/v2/legacy/updater/zor.deb zyphor-os-release.deb
 
-# 	zyphor build package pkg/v2/legacy/updater/zwn
-# 	mv pkg/v2/legacy/updater/zwn.deb zyphor-whats-new.deb
+	zyphor build package pkg/v2/legacy/updater/zwn
+	mv pkg/v2/legacy/updater/zwn.deb zyphor-whats-new.deb
 
 # 	zyphor build package pkg/v2/legacy/zywin/zywin
 # 	mv pkg/v2/legacy/zywin/zywin.deb zywin.deb
@@ -238,8 +258,8 @@ release:
 # 	zyphor build package pkg/v2/legacy/zou/grub-screensaver-1
 # 	mv pkg/v2/legacy/zou/grub-screensaver-1.deb grub-screensaver-1.deb
 
-# 	zyphor build package pkg/v2/legacy/zyphor-grub-theme
-# 	mv pkg/v2/legacy/zyphor-grub-theme.deb zyphor-grub-theme.deb
+	zyphor build package pkg/v2/legacy/zyphor-grub-theme
+	mv pkg/v2/legacy/zyphor-grub-theme.deb zyphor-grub-theme.deb
 
 # V2 Reforged UPDATES ====================================================
 
@@ -274,8 +294,8 @@ release:
 
 # ADA LOVELACE APPS
 
-	zyphor build package pkg/v2/reforged/apps/zyphor-cli
-	mv pkg/v2/reforged/apps/zyphor-cli.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
+# 	zyphor build package pkg/v2/reforged/apps/zyphor-cli
+# 	mv pkg/v2/reforged/apps/zyphor-cli.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
 
 # 	zyphor build package pkg/v2/reforged/apps/zyphor-command-center
 # 	mv pkg/v2/reforged/apps/zyphor-command-center.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
@@ -384,7 +404,7 @@ release:
 
 # 	---
 
-# 	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
+	mv ./*.deb ../zyphor-os.github.io/ada-lovelace-lts/pool/main/z --verbose
 
 # 	mv ./*.deb ../zyphor-os.github.io/bethany-lts/pool/main/z --verbose
 
