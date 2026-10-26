@@ -32,7 +32,7 @@ Made by **Mark Jason Espelita** himself.
 
 **Dismantled Old Development Methods**
 
-- **NO FUCKING ONBOARDING.** We're contributing to an OS, not applying for a fucking mortgage. Clone the repo, read the docs, and let the code do the talking.
+- **NO MORE FUCKING ONBOARDING.** We're contributing to an OS, not applying for a fucking mortgage. Clone the repo, read the docs, and let the code do the talking.
 - The old fucking **/DEVLOG** file deserves a place in the history books. We suffered through those commits; future generations deserve to know.
   
 **By contributing to Zyphor OS, you solemnly swear that:**
