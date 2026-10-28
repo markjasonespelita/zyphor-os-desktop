@@ -1,0 +1,8 @@
+Package: zyphor-cli
+Version: 14.0.1-r23-stable-release
+Section: utils
+Priority: optional
+Architecture: all
+Depends: bash, curl, jq
+Maintainer: Mark Jason Espelita <markjasonespelita@gmail.com>
+Description: Zyphor OS CLI abstraction layer
