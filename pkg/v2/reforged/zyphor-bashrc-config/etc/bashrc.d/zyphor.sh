@@ -1,16 +1,19 @@
 # Zyphor OS Bash configuration
 
 # ---------------------------------
-# Git branch
+# Git branch (only shown inside a git repo, silent if git is missing)
 # ---------------------------------
 
 git_branch() {
-    local branch
-    branch=$(git branch --show-current 2>/dev/null)
+    # No git installed (non-developer systems) -> print nothing
+    command -v git >/dev/null 2>&1 || return 0
 
-    if [ -n "$branch" ]; then
-        echo " [$branch]"
-    fi
+    local branch
+    # Works from any subdirectory of a repo, not just the root
+    branch=$(git symbolic-ref --short -q HEAD 2>/dev/null) \
+        || branch=$(git rev-parse --short HEAD 2>/dev/null)   # detached HEAD -> short hash
+
+    [ -n "$branch" ] && printf ' (%s)' "$branch"
 }
 
 # ---------------------------------
@@ -22,19 +25,19 @@ configure_prompt() {
     case "$PROMPT_ALTERNATIVE" in
 
         twoline)
-            PS1='\[\e[1;34m\]┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename "$VIRTUAL_ENV")─}(\[\e[1;36m\]\u@\h\[\e[1;34m\])-[\[\e[1;33m\]\w\[\e[1;34m\]]\n└─\[\e[1;35m\]\$\[\e[0m\] '
+            PS1='\[\e[1;34m\]┌──${debian_chroot:+($debian_chroot)─}${VIRTUAL_ENV:+($(basename "$VIRTUAL_ENV")─}(\[\e[1;36m\]\u@\h\[\e[1;34m\])-[\[\e[1;33m\]\w\[\e[1;34m\]]\[\e[1;32m\]$(git_branch)\[\e[1;34m\]\n└─\[\e[1;35m\]\$\[\e[0m\] '
             ;;
 
         oneline)
-            PS1='${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename "$VIRTUAL_ENV"))}\u@\h:\w\$ '
+            PS1='${debian_chroot:+($debian_chroot)}${VIRTUAL_ENV:+($(basename "$VIRTUAL_ENV"))}\u@\h:\w\[\e[1;32m\]$(git_branch)\[\e[0m\]\$ '
             ;;
 
         backtrack)
-            PS1='\[\e[1;31m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\$ '
+            PS1='\[\e[1;31m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[1;32m\]$(git_branch)\[\e[0m\]\$ '
             ;;
 
         *)
-            PS1='\[\e[1;34m\]┌──(\[\e[1;36m\]\u@\h\[\e[1;34m\])-[\[\e[1;33m\]\w\[\e[1;34m\]]\n└─\[\e[1;35m\]\$\[\e[0m\] '
+            PS1='\[\e[1;34m\]┌──(\[\e[1;36m\]\u@\h\[\e[1;34m\])-[\[\e[1;33m\]\w\[\e[1;34m\]]\[\e[1;32m\]$(git_branch)\[\e[1;34m\]\n└─\[\e[1;35m\]\$\[\e[0m\] '
             ;;
 
     esac
