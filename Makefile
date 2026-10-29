@@ -171,17 +171,25 @@ add:
 	git add Makefile
 	git commit -m "build: update Makefile"
 
-	# Update Zyphor What's New package metadata
-	git add pkg/v2/reforged/apps/zyphor-whats-new/DEBIAN/control
-	git commit -m "pkg(zyphor-whats-new): update Reforged package metadata"
+	# Update Zyphor package cache command
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/cache
+	git commit -m "feat(zyphor-cli): update package cache command"
 
-	# Update Zyphor What's New release data
-	git add pkg/v2/reforged/apps/zyphor-whats-new/usr/share/zyphor-whats-new/release.js
-	git commit -m "feat(zyphor-whats-new): update Reforged release data"
+	# Update Zyphor package install command
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/install
+	git commit -m "feat(zyphor-cli): update package install command"
 
-	# Update Zyphor Bashrc Config package metadata
-	git add pkg/v2/reforged/zyphor-bashrc-config/DEBIAN/control
-	git commit -m "pkg(zyphor-bashrc-config): update Reforged package metadata"
+	# Update Zyphor package list command
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/list
+	git commit -m "feat(zyphor-cli): update package list command"
+
+	# Update Zyphor package remove command
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/remove
+	git commit -m "feat(zyphor-cli): update package remove command"
+
+	# Update Zyphor package search command
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/search
+	git commit -m "feat(zyphor-cli): update package search command"
 
 push:
 	git push origin $(branch)
