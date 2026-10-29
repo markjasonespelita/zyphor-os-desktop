@@ -170,29 +170,13 @@ add:
 	git add Makefile
 	git commit -m "build: update repository automation"
 
-	# Update ZOR updater package control metadata
-	git add pkg/v2/legacy/updater/zor/DEBIAN/control
-	git commit -m "pkg(zor): update updater package metadata"
-
-	# Update ZOR updater post-install script
-	git add pkg/v2/legacy/updater/zor/DEBIAN/postinst
-	git commit -m "fix(zor): update updater post-install script"
-
-	# Update ZWN package control metadata
-	git add pkg/v2/legacy/updater/zwn/DEBIAN/control
-	git commit -m "pkg(zwn): update package metadata"
+	# Update Zyphor What's New package metadata
+	git add pkg/v3/apps/zyphor-whats-new/DEBIAN/control
+	git commit -m "pkg(zyphor-whats-new): update package metadata"
 
 	# Update Zyphor What's New release data
-	git add pkg/v2/legacy/updater/zwn/usr/share/zyphor-whats-new/release.js
-	git commit -m "feat(zwn): update release data"
-
-	# Update Zyphor GRUB theme package metadata
-	git add pkg/v2/legacy/zyphor-grub-theme/DEBIAN/control
-	git commit -m "pkg(grub-theme): update package metadata"
-
-	# Update Zyphor GRUB theme post-install script
-	git add pkg/v2/legacy/zyphor-grub-theme/DEBIAN/postinst
-	git commit -m "fix(grub-theme): update post-install script"
+	git add pkg/v3/apps/zyphor-whats-new/usr/share/zyphor-whats-new/release.js
+	git commit -m "feat(zyphor-whats-new): update release data"
 
 push:
 	git push origin $(branch)
