@@ -175,6 +175,10 @@ add:
 	git add pkg/v3/apps/zyphor-cli/DEBIAN/control
 	git commit -m "pkg(zyphor-cli): update package control metadata"
 
+	# Update Zyphor CLI package search command
+	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/search
+	git commit -m "feat(zyphor-cli): update package search command"
+
 push:
 	git push origin $(branch)
 
