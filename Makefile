@@ -171,13 +171,9 @@ add:
 	git add Makefile
 	git commit -m "build: update Makefile"
 
-	# Update Zyphor CLI package metadata
+	# Update Zyphor CLI package control metadata
 	git add pkg/v3/apps/zyphor-cli/DEBIAN/control
 	git commit -m "pkg(zyphor-cli): update package control metadata"
-
-	# Update Zyphor CLI package search command
-	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/search
-	git commit -m "feat(zyphor-cli): update package search command"
 
 push:
 	git push origin $(branch)
@@ -354,7 +350,7 @@ release:
 # BETHANY APPS
 
 	zyphor build package pkg/v3/apps/zyphor-cli
-# 	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
+	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
 
 # 	make -C pkg/v3/apps/zylearn clean
 # 	make -C pkg/v3/apps/zylearn
