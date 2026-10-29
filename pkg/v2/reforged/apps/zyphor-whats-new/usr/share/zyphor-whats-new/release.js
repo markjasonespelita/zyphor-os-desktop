@@ -1,9 +1,19 @@
 const releaseNotes = {
     distro: "Zyphor OS Ada Lovelace LTS",
-    version: "2.2.1-ada-lovelace-lts-u71",
-    date: "Updated On: October 13, 2026 @ 11:42 AM",
+    version: "2.2.1-ada-lovelace-lts-u72",
+    date: "Updated On: October 29, 2026 @ 10:24 AM",
 
     sections: [
+        {
+            "title": "Git Branch in Terminal Prompt",
+            "items": [
+                "Added a git branch indicator to the default bash prompt, so the current branch name is shown right after the working directory whenever you are inside a git repository",
+                "A '*' appears after the branch name when the repository has uncommitted changes, so you can tell at a glance whether your working tree is clean",
+                "On a detached HEAD, the prompt shows the short commit hash instead of a branch name",
+                "The branch is shown in yellow when the terminal supports colors, and in plain text otherwise, so the prompt works in both modes",
+                "Nothing extra is shown outside a git repository, so the prompt stays clean in all other folders"
+            ]
+        },
         {
             "title": "Windows/Super Key Opens Whisker Menu",
             "items": [
