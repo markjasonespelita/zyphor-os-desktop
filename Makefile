@@ -171,25 +171,9 @@ add:
 	git add Makefile
 	git commit -m "build: update Makefile"
 
-	# Update Zyphor package cache command
-	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/cache
-	git commit -m "feat(zyphor-cli): update package cache command"
-
-	# Update Zyphor package install command
-	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/install
-	git commit -m "feat(zyphor-cli): update package install command"
-
-	# Update Zyphor package list command
-	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/list
-	git commit -m "feat(zyphor-cli): update package list command"
-
-	# Update Zyphor package remove command
-	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/remove
-	git commit -m "feat(zyphor-cli): update package remove command"
-
-	# Update Zyphor package search command
-	git add pkg/v3/apps/zyphor-cli/usr/lib/zyphor/pkg/search
-	git commit -m "feat(zyphor-cli): update package search command"
+	# Update Zyphor CLI package metadata
+	git add pkg/v3/apps/zyphor-cli/DEBIAN/control
+	git commit -m "pkg(zyphor-cli): update package control metadata"
 
 push:
 	git push origin $(branch)
@@ -273,8 +257,8 @@ release:
 # 	zyphor build package pkg/v2/reforged/zyphor-background-themes
 # 	mv pkg/v2/reforged/zyphor-background-themes.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace/pool/main/z --verbose
 
-	zyphor build package pkg/v2/reforged/zyphor-bashrc-config
-	mv pkg/v2/reforged/zyphor-bashrc-config.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace/pool/main/z --verbose
+# 	zyphor build package pkg/v2/reforged/zyphor-bashrc-config
+# 	mv pkg/v2/reforged/zyphor-bashrc-config.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace/pool/main/z --verbose
 	
 # 	zyphor build package pkg/v2/reforged/zyphor-face-icon
 # 	mv pkg/v2/reforged/zyphor-face-icon.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace/pool/main/z --verbose
@@ -296,8 +280,8 @@ release:
 # 	zyphor build package pkg/v2/reforged/apps/zyphor-command-center-web
 # 	mv pkg/v2/reforged/apps/zyphor-command-center-web.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
 
-	zyphor build package pkg/v2/reforged/apps/zyphor-whats-new
-	mv pkg/v2/reforged/apps/zyphor-whats-new.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
+# 	zyphor build package pkg/v2/reforged/apps/zyphor-whats-new
+# 	mv pkg/v2/reforged/apps/zyphor-whats-new.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
 	
 # 	zyphor build package pkg/v2/reforged/apps/zycamera-launcher/zycamera-launcher
 # 	mv pkg/v2/reforged/apps/zycamera-launcher/zycamera-launcher.deb ../zyphor-os.github.io/ada-lovelace-lts-reforged/ada-lovelace-apps/pool/main/z --verbose
@@ -365,7 +349,7 @@ release:
 
 # BETHANY APPS
 
-# 	zyphor build package pkg/v3/apps/zyphor-cli
+	zyphor build package pkg/v3/apps/zyphor-cli
 # 	mv pkg/v3/apps/zyphor-cli.deb ../zyphor-os.github.io/bethany-lts/bethany-apps/pool/main/z --verbose
 
 # 	make -C pkg/v3/apps/zylearn clean
