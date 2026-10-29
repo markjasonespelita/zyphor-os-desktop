@@ -200,7 +200,7 @@ zyphor_pkg_search() {
   wait "$LIVE_PID" 2>/dev/null
 
   LIVE_RESULTS=$(cat "$LIVE_TMP")
-  LIVE_COUNT=$(grep -c '^ -' "$LIVE_TMP" 2>/dev/null || echo 0)
+  LIVE_COUNT=$(grep -c '^ -' "$LIVE_TMP" 2>/dev/null); LIVE_COUNT=${LIVE_COUNT:-0}
   rm -f "$LIVE_TMP"
 
   if [ "$LIVE_COUNT" -gt 0 ]; then
