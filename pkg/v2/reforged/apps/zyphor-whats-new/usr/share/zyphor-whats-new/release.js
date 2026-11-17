@@ -1,9 +1,62 @@
 const releaseNotes = {
     distro: "Zyphor OS Ada Lovelace LTS",
-    version: "2.2.1-ada-lovelace-lts-u72",
-    date: "Updated On: October 29, 2026 @ 10:24 AM",
+    version: "2.2.1-ada-lovelace-lts-u76",
+    date: "Updated On: November 16, 2026 @ 01:21 PM",
 
     sections: [
+        {
+            "title": "Smarter Command History",
+            "items": [
+                "Added Kali-style gray suggestions that finish your command as you type, based on your command history. Press the right arrow key to accept",
+                "Suggestions are powered by ble.sh, which is now included as a separate package (zyphor-blesh) and installed automatically with the Bash configuration",
+                "Commands are now saved to your history immediately, so every open terminal shares the same history and nothing is lost if a terminal closes unexpectedly",
+                "The history now remembers up to 50,000 commands, and duplicate entries and commands starting with a space are skipped",
+                "If ble.sh is not available, typing the start of a command and pressing the up or down arrow still searches your history by prefix",
+                "If fzf is installed, Ctrl+R opens a fuzzy search of your command history",
+                "Tab completion is now case-insensitive and shows all matches at once when there is more than one",
+                "Added default suggestion and syntax highlighting colors, which you can override by creating your own ~/.blerc file"
+            ]
+        },
+        {
+            "title": "Cleaner Terminal Banner",
+            "items": [
+                "The terminal welcome banner is now minimal and clean, showing only the OS name and the most useful commands",
+                "Removed the build time from the banner, so the output is shorter and easier to read",
+                "The banner now shows only in interactive terminals, so scripts, SSH commands and piped output are no longer cluttered with it",
+                "If figlet and lolcat are installed, the OS name is shown in a colorful style; otherwise a simple colored text is used as a fallback",
+                "The OS name is read from your system's release information, so it always matches the installed version",
+                "Added quick command hints for updating the system with sudo zyphor system upgrade, plus the shorter sudo zy system upgrade alternative",
+                "Added a hint for sudo zy system clean, so you can easily clean and optimize your system right from the banner"
+            ]
+        },
+        {
+            "title": "Smarter System Cleanup",
+            "items": [
+                "The zyphor system clean command now does a much more thorough cleanup: it removes package caches, unused packages, leftover configuration files, old rotated logs, and stale temporary files",
+                "The system journal is trimmed to the last 7 days, which can free up gigabytes on systems that have been running for a long time",
+                "Added a --dry-run option to system clean, so you can preview what would be removed before anything is changed",
+                "Added a --deep option to system clean, which also empties your Trash and removes unused Flatpak runtimes",
+                "Thumbnail cleanup now targets your own user account correctly, even when the command is run with sudo",
+                "After cleaning, Zyphor shows how much disk space was freed in easy-to-read units like MB and GB",
+                "The system clean command and its options are listed in the zyphor help screen and in the Zyphor CLI documentation"
+            ]
+        },
+        {
+            "title": "Package Install Works From the Command Center",
+            "items": [
+                "Installing a package or app from the Zyphor Command Center no longer gets stuck on a menu that cannot be answered, so apps that are not in the Zyphor repository now install without freezing",
+                "Apps that are not in the Zyphor repository are installed with apt by default, so you only need to type the app name",
+                "Added Install via Snap and Install via Flatpak pages to the Packages section, so you can install directly from the Snap store or Flathub",
+                "Apps that are listed in the Zyphor repository still install the way the repository specifies, whichever page you use"
+            ]
+        },
+        {
+            "title": "Zyphor CLI Help, Available Offline",
+            "items": [
+                "The Zyphor CLI documentation is now built into the Zyphor Command Center's offline mode, so you can look up any zyphor command without an internet connection",
+                "Added a button on this What's New page that takes you straight to the Zyphor CLI documentation, so you no longer have to find it at the bottom of the sidebar"
+            ]
+        },
         {
             "title": "Git Branch in Terminal Prompt",
             "items": [

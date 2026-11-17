@@ -15,9 +15,10 @@ editions() { for d in desktops/*/desktop.conf; do basename "$(dirname "$d")"; do
 
 usage() {
     cat <<EOF
-Usage: tools/build-iso.sh --desktop NAME [--purge | --config-only]
+Usage: tools/build-iso.sh (--desktop NAME | --NAME) [--purge | --config-only]
 
   --desktop NAME  Edition to build: $(editions | tr '\n' ' ')
+  --NAME          Shorthand for --desktop NAME, e.g. --xfce or --gnome.
   --purge         Also delete that edition's download cache (slower, fully
                   fresh). Use for releases or when builds behave strangely.
   --config-only   Only assemble build/NAME and run lb config (no root), to
@@ -32,13 +33,32 @@ EOF
 DESKTOP=""
 PURGE=""
 CONFIG_ONLY=0
+
+# One edition per build: --gnome --xfce is a mistake, not "the last one wins".
+set_desktop() {
+    if [ -n "$DESKTOP" ] && [ "${DESKTOP,,}" != "${1,,}" ]; then
+        echo "Only one edition per build (got '$DESKTOP' and '$1')." >&2
+        exit 2
+    fi
+    DESKTOP="$1"
+}
+
 while [ $# -gt 0 ]; do
     case "$1" in
-        --desktop) DESKTOP="${2:?--desktop needs a name}"; shift ;;
-        --desktop=*) DESKTOP="${1#--desktop=}" ;;
+        --desktop) set_desktop "${2:?--desktop needs a name}"; shift ;;
+        --desktop=*) set_desktop "${1#--desktop=}" ;;
         --purge) PURGE="--purge" ;;
         --config-only) CONFIG_ONLY=1 ;;
         -h|--help) usage; exit 0 ;;
+        # --gnome, --xfce, --minimal, ...: any --NAME with a desktops/NAME/
+        # edition. A new edition gets its flag by existing; nothing to add here.
+        --?*)
+            edition="${1#--}"
+            if [ -f "desktops/${edition,,}/desktop.conf" ]; then
+                set_desktop "$edition"
+            else
+                echo "Unknown option: $1" >&2; usage >&2; exit 2
+            fi ;;
         *) echo "Unknown option: $1" >&2; usage >&2; exit 2 ;;
     esac
     shift
@@ -146,8 +166,20 @@ if leftover="$(grep -rlE '@[A-Z_]+@' "$BUILD/config/hooks" "$BUILD/config/packag
     die "Unknown @WORD@ left in: $leftover"
 fi
 
+# live-build installs every .deb in packages.chroot, not just what the edition's
+# package list asks for. So this edition gets only its own packages: those of
+# the other editions (DISTRO_ID-desktop-NAME, DISTRO_ID-settings-NAME) stay out,
+# and so does the installer unless the edition has it. Otherwise a KDE ISO
+# would also install GNOME and Xfce, and boot whichever login screen wins.
+SKIP=""
+for edition in $(editions); do
+    [ "$edition" = "$DESKTOP" ] && continue
+    SKIP="$SKIP $DISTRO_ID-desktop-$edition $DISTRO_ID-settings-$edition"
+done
+[ "$INSTALLER" = yes ] || SKIP="$SKIP $DISTRO_ID-installer"
+
 step "Building $DISTRO_NAME $DISTRO_VERSION packages"
-sh packages/build.sh "$ROOT/$BUILD/config/packages.chroot"
+sh packages/build.sh "$ROOT/$BUILD/config/packages.chroot" "$SKIP"
 
 step "Generating live-build configuration"
 (cd "$BUILD" && lb config)

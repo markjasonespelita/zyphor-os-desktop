@@ -23,10 +23,15 @@ apt install zyphor-fastfetch-config -y
 apt install zyphor-face-icon -y
 
 # apt install zyphor-desktop-environment -y
+apt install zyphor-command-center -y
 
 apt install zyphor-bashrc-config -y
 
 apt install zycamera-launcher -y
+
+# new preinstalled
+
+apt install vim -y
 
 rm -rf ./zyphor-archive-keyring.deb
 
@@ -36,4 +41,79 @@ zy system upgrade
 
 zy system clean
 
+# Install GNOME Dash to Dock
+apt update
+apt install -y gnome-shell-extension-dashtodock
+
+# Configure GNOME window buttons and dock
+mkdir -p /etc/dconf/db/local.d
+
+cat > /etc/dconf/db/local.d/00-zyphor-gnome <<'EOF'
+[org/gnome/desktop/wm/preferences]
+button-layout=':minimize,maximize,close'
+
+[org/gnome/shell]
+disable-user-extensions=false
+enabled-extensions=['dash-to-dock@micxgx.gmail.com']
+
+[org/gnome/shell/extensions/dash-to-dock]
+dock-fixed=true
+autohide=false
+intellihide=false
+dock-position='BOTTOM'
+EOF
+
+# Apply system-wide GNOME defaults
+mkdir -p /etc/dconf/profile
+
+cat > /etc/dconf/profile/user <<'EOF'
+user-db:user
+system-db:local
+EOF
+
+dconf update
+
+# cleaning OS cache
+
+#!/bin/bash
+set -e
+
+echo "Cleaning logs..."
+find /var/log -type f -exec truncate -s 0 {} \;
+rm -rf /var/log/journal/*
+
+echo "Cleaning APT cache..."
+apt clean
+apt autoclean
+rm -rf /var/lib/apt/lists/*
+
+echo "Cleaning temporary files..."
+rm -rf /tmp/*
+rm -rf /var/tmp/*
+rm -rf /root/.cache/*
+
+echo "Cleaning shell history..."
+rm -f /root/.bash_history
+rm -f /root/.zsh_history
+history -c 2>/dev/null || true
+
+echo "Cleaning machine identity..."
+truncate -s 0 /etc/machine-id
+rm -f /var/lib/dbus/machine-id
+
+echo "Stopping services and processes..."
+
+# Stop services gracefully when systemd is available.
+if command -v systemctl >/dev/null 2>&1; then
+    systemctl stop cron.service 2>/dev/null || true
+    systemctl stop rsyslog.service 2>/dev/null || true
+fi
+
+# This script should run inside the target chroot.
+# Do not use pkill -9 -x bash or kill every host process.
+# The build host and its shell must remain running.
+
+echo "Cleanup complete."
+
+# Remove build script
 rm -rf ./_base_v3_gnome.sh
